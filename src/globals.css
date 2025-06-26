@@ -1,0 +1,34 @@
+@import "tailwindcss";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css");
+
+@layer utilities {
+  .text-headline1 {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .text-subtitle1 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .text-body1 {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .text-body2 {
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+@theme {
+  --color-primary: #faa200;
+  --color-text: #111111;
+  --color-subtext: #767676;
+  --color-grayLine: #e2dfdf;
+  --color-deactivate: #f1f3f5;
+  --color-deactivate-text: #bebebe;
+}
+
+body {
+  @apply font-sans;
+}
