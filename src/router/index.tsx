@@ -5,6 +5,7 @@ import Login from "@/features/auth/pages/Login";
 import Signup from "@/features/auth/pages/Signup";
 import SurveyPage from "@/features/recommend/pages/Survey";
 import RecommendPage from "@/features/recommend/pages/Recommend";
+import RecommendResult from "@/features/recommend/pages/RecommendResult";
 import MyPage from "@/features/mypage/pages/MyPage";
 import MyStampList from "@/features/mypage/pages/MyStampList";
 import StampMap from "@/features/stamp/pages/StampMap";
@@ -18,8 +19,9 @@ export const router = createBrowserRouter([
       { path: "", element: <Home /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
-      { path: "recommend", element: <SurveyPage /> },
-      { path: "recommend/result", element: <RecommendPage /> },
+      { path: "recommend", element: <RecommendPage /> },
+      { path: "recommend/survey/:step", element: <SurveyPage /> },
+      { path: "recommend/result", element: <RecommendResult /> },
       { path: "mypage", element: <MyPage /> },
       { path: "mypage/stamp", element: <MyStampList /> },
       { path: "stamp", element: <StampMap /> },
