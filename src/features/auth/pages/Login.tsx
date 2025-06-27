@@ -54,7 +54,7 @@ const Login = () => {
       <div className="absolute bottom-[52px] left-0 right-0 text-center text-body2 text-subtext">
         아직 회원이 아니신가요?
         <span
-          className="text-primary text-body3 cursor-pointer ml-[4px]"
+          className="text-primary text-body3 cursor-pointer ml-[4px] underline"
           onClick={handleGoRegister}
         >
           회원가입
