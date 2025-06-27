@@ -15,7 +15,7 @@ const AuthInput = ({
   const inputType = showToggle ? (showPassword ? "text" : "password") : type;
 
   return (
-    <div className="flex flex-col mb-[22px] ">
+    <div className="flex flex-col  ">
       <label className="text-body2 mb-[8px] pl-[8px]">{label}</label>
       <div className="relative">
         <input
