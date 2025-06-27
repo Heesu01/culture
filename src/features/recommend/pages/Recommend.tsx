@@ -7,7 +7,7 @@ const Recommend = () => {
   const navigate = useNavigate();
 
   const handleStart = () => {
-    navigate("/recommend/survey");
+    navigate("/recommend/survey/1");
   };
 
   return (
@@ -30,7 +30,11 @@ const Recommend = () => {
       </div>
 
       <div className="absolute bottom-[50px] w-full flex justify-center px-[32px]">
-        <Button variant="primary" onClick={handleStart} className="w-full">
+        <Button
+          variant="primary"
+          onClick={handleStart}
+          className="w-full text-subtitle1"
+        >
           시작하기
         </Button>
       </div>

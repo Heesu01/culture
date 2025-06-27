@@ -7,11 +7,10 @@ const RecommendFooter = ({
   onPrev,
   onNext,
   isNextDisabled,
-}: RecommendFooterProps & {
-  onPrev: () => void;
-  onNext: () => void;
-  isNextDisabled?: boolean;
-}) => {
+}: RecommendFooterProps) => {
+  const isFirst = step === 0;
+  const isLast = step === total - 1;
+
   return (
     <div className="fixed bottom-[50px] left-0 w-full px-[32px]">
       <div className="flex justify-center mb-[32px]">
@@ -26,17 +25,20 @@ const RecommendFooter = ({
           ))}
         </div>
       </div>
-      <div className="flex w-full gap-4 justify-center">
-        <Button variant="secondary" onClick={onPrev} className="w-1/2">
-          이전
-        </Button>
+
+      <div className="flex gap-4 justify-center">
+        {!isFirst && (
+          <Button variant="secondary" onClick={onPrev} className="w-1/2">
+            이전
+          </Button>
+        )}
         <Button
           variant="primary"
           onClick={onNext}
-          className="w-1/2"
+          className={`${!isFirst ? "w-1/2" : "w-full"}`}
           disabled={isNextDisabled}
         >
-          다음
+          {isLast ? "추천코스 확인" : "다음"}
         </Button>
       </div>
     </div>
