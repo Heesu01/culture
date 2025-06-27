@@ -9,7 +9,7 @@ const Button = ({
   className = "",
 }: ButtonProps) => {
   const baseStyle = `
-    w-full max-w-[500px]
+    w-full
     h-[60px]
     rounded-[16px]
     text-subtitle
