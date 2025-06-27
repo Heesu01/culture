@@ -18,6 +18,10 @@
     font-size: 14px;
     font-weight: 400;
   }
+  .text-body3 {
+    font-size: 12px;
+    font-weight: 500;
+  }
 }
 
 @theme {
