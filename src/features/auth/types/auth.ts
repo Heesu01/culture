@@ -18,3 +18,14 @@ export interface LoginResponse {
   token: string;
   refreshToken: string;
 }
+
+// 회원가입 api 요청 페이로드와 응답 타입 정의
+export interface SignupPayload {
+  userId: string;
+  password: string;
+  name: string;
+}
+
+export interface SignupResponse {
+  message: string;
+}
