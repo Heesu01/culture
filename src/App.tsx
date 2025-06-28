@@ -1,11 +1,15 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import NavBar from "./shared/components/NavBar";
 
 const App = () => {
+  const location = useLocation();
+
+  const hideNav = ["/login", "/signup"].includes(location.pathname);
+
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Outlet />
-      <NavBar />
+      {!hideNav && <NavBar />}
     </div>
   );
 };

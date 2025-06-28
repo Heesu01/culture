@@ -24,7 +24,7 @@ const RecommendResult = () => {
         </p>
       </div>
 
-      <div className="fixed bottom-[50px] w-full flex justify-center px-[32px]">
+      <div className="fixed bottom-[121px] w-full flex justify-center px-[32px]">
         <Button
           variant="primary"
           onClick={handleGoMarket}

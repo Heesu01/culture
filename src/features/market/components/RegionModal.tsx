@@ -6,11 +6,11 @@ const RegionModal = ({ region }: RegionModalProps) => {
   const navigate = useNavigate();
 
   const handleExplore = () => {
-    navigate(`/${region.name}`);
+    navigate(`/market/${region.name}`);
   };
 
   return (
-    <div className="absolute bottom-0 left-1/2 w-full -translate-x-1/2 rounded-[24px] rounded-b-none bg-white px-[32px] pt-[42px] z-50">
+    <div className="absolute bottom-[71px] left-1/2 w-full -translate-x-1/2 rounded-[24px] rounded-b-none bg-white px-[32px] pt-[42px] z-50">
       <p className="text-[20px] font-semibold mb-[4px]">{region.name}</p>
       <p className="text-body2 text-[#767676] mb-[12px]">
         {region.description}
