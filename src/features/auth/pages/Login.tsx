@@ -42,7 +42,6 @@ const Login = () => {
     try {
       const res = await login({ userId, password });
       console.log("로그인 성공:", res);
-      alert("로그인 성공!");
       navigate("/");
     } catch (error) {
       console.error("로그인 실패:", error);

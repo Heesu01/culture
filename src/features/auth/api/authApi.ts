@@ -19,3 +19,9 @@ export const signup = async (
   const { data } = await axios.post<SignupResponse>("/auth/signup", payload);
   return data;
 };
+
+// 로그아웃 API
+export const logout = async (): Promise<{ message: string }> => {
+  const { data } = await axios.get<{ message: string }>("/auth/logout");
+  return data;
+};
