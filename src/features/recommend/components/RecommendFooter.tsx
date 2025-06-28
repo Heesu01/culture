@@ -12,7 +12,7 @@ const RecommendFooter = ({
   const isLast = step === total - 1;
 
   return (
-    <div className="fixed bottom-[50px] left-0 w-full px-[32px]">
+    <div className="fixed bottom-[121px] left-0 w-full px-[32px]">
       <div className="flex justify-center mb-[32px]">
         <div className="flex gap-[8px]">
           {Array.from({ length: total }).map((_, i) => (

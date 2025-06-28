@@ -29,7 +29,7 @@ const Recommend = () => {
         />
       </div>
 
-      <div className="absolute bottom-[50px] w-full flex justify-center px-[32px]">
+      <div className="absolute bottom-[121px] w-full flex justify-center px-[32px]">
         <Button
           variant="primary"
           onClick={handleStart}
