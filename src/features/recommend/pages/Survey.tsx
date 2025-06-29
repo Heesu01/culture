@@ -9,8 +9,8 @@ const Survey = () => {
   const navigate = useNavigate();
   const { step: stepParam } = useParams();
   const step = stepParam ? parseInt(stepParam, 10) - 1 : 0;
-  const [answers, setAnswers] = useState<(number | null)[]>(
-    Array(surveyQuestions.length).fill(null)
+  const [answers, setAnswers] = useState<(number | number[] | null)[]>(
+    surveyQuestions.map((q) => (q.multiple ? [] : null))
   );
 
   useEffect(() => {
@@ -21,9 +21,27 @@ const Survey = () => {
   }, [step]);
 
   const handleSelect = (index: number) => {
-    const newAnswers = [...answers];
-    newAnswers[step] = index;
-    setAnswers(newAnswers);
+    const q = surveyQuestions[step];
+    if (q.multiple) {
+      const prev = answers[step] as number[];
+      let newArr = Array.isArray(prev) ? [...prev] : [];
+      if (newArr.includes(index)) {
+        newArr = newArr.filter((i) => i !== index);
+      } else {
+        newArr.push(index);
+      }
+      setAnswers((prevAnswers) => {
+        const copy = [...prevAnswers];
+        copy[step] = newArr;
+        return copy;
+      });
+    } else {
+      setAnswers((prevAnswers) => {
+        const copy = [...prevAnswers];
+        copy[step] = index;
+        return copy;
+      });
+    }
   };
 
   const handleNext = () => {
@@ -40,19 +58,25 @@ const Survey = () => {
   };
 
   const q = surveyQuestions[step];
-  const selectedIndex = answers[step];
-  const isDisabled = selectedIndex === null;
+  const isDisabled = (() => {
+    const q = surveyQuestions[step];
+    const selected = answers[step];
+    if (q.multiple) return !Array.isArray(selected) || selected.length === 0;
+    return selected === null;
+  })();
 
   return (
     <div className="flex flex-col h-full ">
       <RecommendHeader />
-      <div className="px-[32px]">
+      <div className="px-[32px] overflow-y-auto flex-1 max-h-[525px]">
         <Question
           title={q.title}
           subtitle={q.subtitle}
           options={q.options}
           selectedIndex={answers[step]}
           onSelect={handleSelect}
+          multiple={!!q.multiple}
+          grid={!!q.grid}
         />
         <RecommendFooter
           step={step}
