@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Header from "@/shared/components/Header";
 import AuthInput from "@/features/auth/components/AuthInput";
 import Button from "@/shared/components/Button";
+import { signup } from "@/features/auth/api/authApi";
+import type { AxiosError } from "axios";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -41,10 +43,17 @@ const Signup = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     if (!validate()) return;
 
-    console.log("회원가입 시도:", { userId, password, name });
+    try {
+      const res = await signup({ userId, password, name });
+      console.log(res.message);
+    } catch (error) {
+      const err = error as AxiosError<{ message: string }>;
+      const message = err.response?.data?.message || "회원가입 실패";
+      alert(message);
+    }
   };
 
   const handleGoLogin = () => {
