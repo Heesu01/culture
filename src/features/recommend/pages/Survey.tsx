@@ -68,7 +68,7 @@ const Survey = () => {
   return (
     <div className="flex flex-col h-full ">
       <RecommendHeader />
-      <div className="px-[32px] overflow-y-auto flex-1 max-h-[525px]">
+      <div className="px-[32px] overflow-y-auto flex-1 max-h-[62vh]">
         <Question
           title={q.title}
           subtitle={q.subtitle}

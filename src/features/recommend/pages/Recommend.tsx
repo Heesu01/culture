@@ -25,7 +25,7 @@ const Recommend = () => {
         <img
           src={startImg}
           alt="추천 캐릭터"
-          className="mt-[70px] w-[165px] h-[159px] "
+          className="mt-[70px] w-[174px] h-[198px] "
         />
       </div>
 
