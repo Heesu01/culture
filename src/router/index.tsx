@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
       { path: "stamp", element: <StampMap /> },
       { path: "stamp/certification", element: <Certification /> },
       { path: "stamp/mystamp", element: <MyStampList /> },
-      { path: "stamp/mystamp/detail", element: <StampDetail /> },
+      { path: "stamp/mystamp/:region", element: <StampDetail /> },
     ],
   },
 ]);

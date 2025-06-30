@@ -1,45 +1,83 @@
-import { useNavigate } from "react-router-dom";
-import backImg from "@/assets/back.png";
+import { useNavigate, useParams } from "react-router-dom";
+import backImgB from "@/assets/back.png";
+import backImgW from "@/features/stamp/assets/backW.png";
 import TrueStamp from "@/features/stamp/assets/TrueStamp.png";
 import FalseStamp from "@/features/stamp/assets/FalseStamp.png";
 
 const StampDetail = () => {
   const navigate = useNavigate();
+  const { region } = useParams<{ region: string }>();
 
   const stamps = [
     { id: "1", name: "망원시장", visited: true },
     { id: "2", name: "으잉시장", visited: false },
+    { id: "2-1", name: "으잉시장", visited: false },
+    { id: "1-1", name: "망원시장", visited: false },
     { id: "3", name: "으엥시장", visited: false },
   ];
 
+  const visitedCount = stamps.filter((s) => s.visited).length;
+  const totalCount = stamps.length;
+  const progress = Number(((visitedCount / totalCount) * 100).toFixed(0));
+
+  let bgColor = "bg-deactivate";
+  if (progress === 100) {
+    bgColor = "bg-primary";
+  } else if (progress > 0 && progress < 100) {
+    bgColor = "bg-sub";
+  } else if (progress === 0) {
+    bgColor = "bg-deactivate";
+  }
+  const backIcon = Number(progress) === 0 ? backImgB : backImgW;
+  const textColor = Number(progress) === 0 ? "text-black" : "text-white";
+
   return (
-    <div className="flex flex-col h-screen pb-[71px] ">
-      <div className="h-[44px] bg-primary"></div>
-      <div className="relative flex items-center h-[44px] bg-primary">
+    <div className="flex flex-col h-screen pb-[71px]">
+      <div className={`h-[44px] ${bgColor}`} />
+
+      <div className={`relative flex items-center h-[44px] ${bgColor}`}>
         <button className="absolute left-[32px]" onClick={() => navigate(-1)}>
           <img
-            src={backImg}
+            src={backIcon}
             alt="뒤로가기"
             className="w-6 h-6 object-contain"
           />
         </button>
-
-        <p className="text-subtitle1 absolute left-1/2 -translate-x-1/2 bg-primary">
-          도장깨기
+        <p
+          className={`text-subtitle1 absolute left-1/2 -translate-x-1/2 ${textColor}`}
+        >
+          My 도감
         </p>
       </div>
 
-      <div className="bg-primary px-[32px] py-[32px] text-white rounded-b-[20px]">
-        <h2 className="text-headline1 mb-[20px] text-center">서울</h2>
-        <div className="w-full bg-[#AD7000] h-[8px] rounded-full overflow-hidden mb-[8px]">
-          <div
-            className="h-full bg-white"
-            style={{ width: `${(7 / 12) * 100}%` }}
-          />
+      <div
+        className={`${bgColor} px-[32px] py-[32px] text-white rounded-b-[20px]`}
+      >
+        <div className="relative flex justify-center mb-[20px]">
+          <h2 className={`text-headline1 ${textColor}`}>{region}</h2>
+          <span className="absolute translate-x-[82px] top-1/2 -translate-y-1/2 bg-white text-primary px-[12px] py-[8px] rounded-full text-body4">
+            진행률 {progress}%
+          </span>
         </div>
-        <p className="text-body4 flex justify-between items-center">
-          <span>진행률 </span>
-          <span>7 / 12</span>
+
+        <div
+          className={`w-full h-[10px] rounded-full overflow-hidden mb-[8px] ${
+            Number(progress) === 0 ? "bg-deactivate-text" : "bg-[#833200]"
+          }`}
+        >
+          {" "}
+          <div className="h-full bg-white" style={{ width: `${progress}%` }} />
+        </div>
+
+        <p
+          className={`text-body4 flex justify-between items-center ${
+            Number(progress) === 0 ? "text-deactivate-text" : "text-white"
+          }`}
+        >
+          <span>도장깬곳</span>
+          <span>
+            {visitedCount} / {totalCount}
+          </span>
         </p>
       </div>
 
@@ -47,12 +85,23 @@ const StampDetail = () => {
         <div className="w-full h-full overflow-y-auto">
           <div className="grid grid-cols-3 gap-[28px] p-[32px]">
             {stamps.map((stamp) => (
-              <div key={stamp.id} className="flex flex-col items-center">
+              <div
+                key={stamp.id}
+                className="relative flex flex-col items-center"
+              >
                 <img
                   src={stamp.visited ? TrueStamp : FalseStamp}
                   alt={stamp.name}
                   className="w-[85px] h-[85px]"
                 />
+                <span
+                  className={`absolute top-[28%] flex items-center justify-center text-body1 font-bold ${
+                    stamp.visited ? "text-primary" : "text-deactivate-text"
+                  }`}
+                >
+                  {stamp.name.replace(/시장$/, "")}
+                </span>
+
                 <span className="text-body1 mt-[4px]">{stamp.name}</span>
               </div>
             ))}

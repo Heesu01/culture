@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import type { StampCardProps } from "../types/stamp";
+
 import countIcon from "@/features/stamp/assets/count.png";
 import countZeroIcon from "@/features/stamp/assets/countZero.png";
+
 import startCharacter from "@/features/stamp/assets/progress/start.png";
 import earlyCharacter from "@/features/stamp/assets/progress/early.png";
 import midCharacter from "@/features/stamp/assets/progress/mid.png";
@@ -8,6 +11,7 @@ import lateCharacter from "@/features/stamp/assets/progress/late.png";
 import completeCharacter from "@/features/stamp/assets/progress/complete.png";
 
 const StampCard = ({ region, total, progress }: StampCardProps) => {
+  const navigate = useNavigate();
   const isActive = progress > 0;
 
   let character;
@@ -30,17 +34,21 @@ const StampCard = ({ region, total, progress }: StampCardProps) => {
     description = "축하해요! 모든 시장을 다 모았어요!";
   }
 
-  // ✅ 진행률에 따른 배경색
-  let bgColor = "bg-grayBg";
+  let bgColor = "bg-deactivate";
   if (progress === 100) {
     bgColor = "bg-primary";
   } else if (progress > 0 && progress < 100) {
     bgColor = "bg-sub";
   }
 
+  const handleClick = () => {
+    navigate(`/stamp/mystamp/${region}`);
+  };
+
   return (
     <div
-      className={`flex flex-col px-[30px] py-[20px] rounded-[20px] min-w-[287px] h-[424px] ${bgColor}`}
+      onClick={handleClick}
+      className={`flex flex-col px-[30px] py-[20px] rounded-[20px] min-w-[287px] h-[424px] ${bgColor} cursor-pointer`}
     >
       <div
         className={`flex items-center gap-[3.5px] text-body4 mb-[20px] ${
