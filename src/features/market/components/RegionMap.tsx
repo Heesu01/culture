@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { regions } from "@/features/market/data/regions";
 import markerImg from "@/features/market/assets/marker.png";
+import chatbotIcon from "@/features/market/assets/chatbot.png";
 import type { Market } from "@/features/market/types/market";
 
 const NAVER_MAP_CLIENT_ID = import.meta.env.VITE_NAVER_MAP_CLIENT_ID;
@@ -22,6 +23,7 @@ function loadNaverMapScript(callback: () => void) {
 const RegionMap = () => {
   const { regionName } = useParams<{ regionName: string }>();
   const mapElement = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const region = regions.find((r) => r.name === regionName);
 
@@ -80,9 +82,23 @@ const RegionMap = () => {
   }, [region]);
 
   return (
-    <div className="w-full h-full">
+    <div className="relative w-full h-full">
       {region ? (
-        <div ref={mapElement} className="w-full h-full" />
+        <>
+          <div ref={mapElement} className="w-full h-full" />
+
+          <button
+            onClick={() => navigate("/market/chatbot")}
+            className="
+              fixed bottom-[111px] right-[32px]
+              w-[48px] h-[48px]
+              rounded-full bg-white 
+              flex items-center justify-center
+            "
+          >
+            <img src={chatbotIcon} alt="챗봇" className="w-[28px] h-[31px]" />
+          </button>
+        </>
       ) : (
         <div className="p-4">해당 지역 정보를 찾을 수 없습니다.</div>
       )}

@@ -29,12 +29,13 @@
 }
 
 @theme {
-  --color-primary: #faa200;
+  --color-primary: #ff8000;
   --color-text: #111111;
   --color-subtext: #767676;
   --color-grayLine: #e2dfdf;
   --color-deactivate: #f1f3f5;
   --color-deactivate-text: #bebebe;
+  --color-chatbot: #eef2f5;
 }
 
 body {
