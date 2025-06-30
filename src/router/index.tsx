@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "@/App";
 import Home from "@/features/market/pages/Home";
 import RegionDetail from "@/features/market/pages/RegionDetail";
+import ChatBot from "@/features/market/pages/ChatBot";
 import Login from "@/features/auth/pages/Login";
 import Signup from "@/features/auth/pages/Signup";
 import SurveyPage from "@/features/recommend/pages/Survey";
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       { path: "", element: <Navigate to="/market" replace /> },
       { path: "/market", element: <Home /> },
       { path: "market/:regionName", element: <RegionDetail /> },
+      { path: "/market/chatbot", element: <ChatBot /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
       { path: "recommend", element: <RecommendPage /> },

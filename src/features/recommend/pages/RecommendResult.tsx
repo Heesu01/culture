@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import RecommendHeader from "@/features/recommend/components/RecommendHeader";
+import Header from "@/shared/components/Header";
+import finishImg from "@/features/recommend/assets/finish.png";
 import Button from "@/shared/components/Button";
 
 const RecommendResult = () => {
@@ -11,7 +12,12 @@ const RecommendResult = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <RecommendHeader />
+      <Header
+        title="AI 추천 코스"
+        showBack={false}
+        showClose={true}
+        onClosePath="/"
+      />
 
       <div className="flex flex-col items-center justify-center text-center mt-[24px]">
         <h1 className="text-headline1 mb-[8px]">
@@ -19,18 +25,22 @@ const RecommendResult = () => {
           <br />
           <span className="text-primary">망원시장</span>으로 모십니다!
         </h1>
-        <p className="text-body2 text-subtext">
+        <p className="text-body2 text-subtext mb-[106px]">
           힙한 감성 + 맛있는 먹거리 = 망원시장 코스, 지금 바로 출발!
         </p>
       </div>
-
+      <img
+        src={finishImg}
+        alt="추천 끝 캐릭터"
+        className="mt-[70px] w-[361px] h-[223px] m-auto "
+      />
       <div className="fixed bottom-[121px] w-full flex justify-center px-[32px]">
         <Button
           variant="primary"
           onClick={handleGoMarket}
           className="w-full text-subtitle1"
         >
-          시장 구경하기
+          바로 둘러보기
         </Button>
       </div>
     </div>
