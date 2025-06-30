@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import RecommendHeader from "@/features/recommend/components/RecommendHeader";
+import Header from "@/shared/components/Header";
 import finishImg from "@/features/recommend/assets/finish.png";
 import Button from "@/shared/components/Button";
 
@@ -12,7 +12,12 @@ const RecommendResult = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <RecommendHeader />
+      <Header
+        title="AI 추천 코스"
+        showBack={false}
+        showClose={true}
+        onClosePath="/"
+      />
 
       <div className="flex flex-col items-center justify-center text-center mt-[24px]">
         <h1 className="text-headline1 mb-[8px]">

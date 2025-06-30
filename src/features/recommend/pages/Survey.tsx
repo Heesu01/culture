@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import RecommendHeader from "@/features/recommend/components/RecommendHeader";
+import Header from "@/shared/components/Header";
 import Question from "@/features/recommend/components/Question";
 import RecommendFooter from "@/features/recommend/components/RecommendFooter";
 import { surveyQuestions } from "@/features/recommend/constants/survey";
@@ -67,7 +67,12 @@ const Survey = () => {
 
   return (
     <div className="flex flex-col h-full ">
-      <RecommendHeader />
+      <Header
+        title="AI 추천 코스"
+        showBack={false}
+        showClose={true}
+        onClosePath="/"
+      />
       <div className="px-[32px] overflow-y-auto flex-1 max-h-[62vh]">
         <Question
           title={q.title}

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import RecommendHeader from "../components/RecommendHeader";
+import Header from "@/shared/components/Header";
 import startImg from "@/features/recommend/assets/start.png";
 import Button from "@/shared/components/Button";
 
@@ -12,7 +12,12 @@ const Recommend = () => {
 
   return (
     <div className="flex flex-col h-full ">
-      <RecommendHeader />
+      <Header
+        title="AI 추천 코스"
+        showBack={false}
+        showClose={true}
+        onClosePath="/"
+      />
       <div className="flex flex-col items-center justify-center text-center pt-[120px]">
         <h1 className="text-headline1 ">
           어디부터 돌아볼지 모르겠다면?
@@ -28,7 +33,6 @@ const Recommend = () => {
           className="mt-[70px] w-[174px] h-[198px] "
         />
       </div>
-
       <div className="absolute bottom-[121px] w-full flex justify-center px-[32px]">
         <Button
           variant="primary"

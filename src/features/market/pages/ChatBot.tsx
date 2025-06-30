@@ -34,7 +34,7 @@ const ChatBot = () => {
 
   return (
     <div className="flex flex-col h-screen px-[16px]">
-      <Header title="챗봇" showBack={true} />
+      <Header title="챗봇" showBack={false} showClose={true} />
 
       <div className="flex-1 overflow-y-auto px-4 ">
         <ChatBotIntro />
