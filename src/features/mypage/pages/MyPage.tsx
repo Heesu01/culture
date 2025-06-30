@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
 import { logout } from "@/features/auth/api/authApi";
+import { getUserInfo } from "@/features/mypage/api/userApi";
+import type { UserInfo } from "@/features/mypage/types/user";
 import Header from "@/shared/components/Header";
 import { useNavigate } from "react-router-dom";
 import chatbotIcon from "@/features/market/assets/chatbot.png";
@@ -6,6 +9,7 @@ import my1 from "@/features/mypage/assets/my1.png";
 
 const MyPage = () => {
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   const handleLogout = async () => {
     try {
@@ -19,6 +23,19 @@ const MyPage = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const data = await getUserInfo();
+        setUserInfo(data);
+      } catch (error) {
+        console.error("유저 정보 조회 실패:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
   return (
     <div className="p-[32px] bg-grayBg flex flex-col h-screen">
       <Header title="마이페이지" showBack={false} />
@@ -27,13 +44,16 @@ const MyPage = () => {
         <div className="w-[90px] h-[90px] rounded-full bg-white flex items-center justify-center shadow">
           <img src={chatbotIcon} alt="프로필" className="w-[52px] h-[58px]" />
         </div>
-        <span className="text-subtitle1">홍길동</span>
+        <span className="text-subtitle1">{userInfo?.name || "이름없음"}</span>
       </div>
 
       <div className="bg-white rounded-[12px] px-[24px] py-[20px] mb-[20px] flex justify-between text-body3">
         <span>도장깨기 완료</span>
         <span>
-          총 <span className="text-primary">12 시장</span>
+          총{" "}
+          <span className="text-primary">
+            {userInfo?.visitMarketCount ?? 0} 시장
+          </span>
         </span>
       </div>
 
