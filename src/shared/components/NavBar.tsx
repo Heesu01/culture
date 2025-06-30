@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import aiIcon from "@/assets/navigation/ai-chip.png";
+import aiIcon from "@/assets/navigation/ai.png";
 import mapIcon from "@/assets/navigation/map.png";
 import stampIcon from "@/assets/navigation/stamp.png";
 import mypageIcon from "@/assets/navigation/user.png";
