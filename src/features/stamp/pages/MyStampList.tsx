@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "@/shared/components/Header";
 import StampCard from "@/features/stamp/components/StampCard";
+import { getRegionsProgress } from "@/features/stamp/api/stampApi";
 import type { RegionProgress } from "@/features/stamp/types/stamp";
 import { useNavigate } from "react-router-dom";
 
@@ -9,23 +10,23 @@ const MyStampList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const data = {
-      regions: [
-        { region: "울산", visitCount: 21, totalCount: 42, progressRate: 24 },
-        { region: "충북", visitCount: 11, totalCount: 55, progressRate: 54 },
-        { region: "서울", visitCount: 1, totalCount: 189, progressRate: 88 },
-        { region: "전북", visitCount: 0, totalCount: 57, progressRate: 100 },
-        { region: "경기", visitCount: 0, totalCount: 150, progressRate: 0 },
-      ],
+    const fetchRegions = async () => {
+      try {
+        const data = await getRegionsProgress();
+        setRegions(data.regions);
+      } catch (error) {
+        console.error("지역 진행률 가져오기 실패:", error);
+      }
     };
-    setRegions(data.regions);
+
+    fetchRegions();
   }, []);
 
   const activeRegions = regions.filter((r) => r.progressRate > 0);
   const inactiveRegions = regions.filter((r) => r.progressRate === 0);
 
   return (
-    <div className="h-full flex flex-col ">
+    <div className="h-full flex flex-col">
       <Header
         title="My 도감"
         showBack={true}
