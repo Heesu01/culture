@@ -5,3 +5,11 @@ export type Market = {
   x: string;
   y: string;
 };
+
+export interface GetMarketsResponse {
+  statusCode: string;
+  message: string;
+  data: {
+    markets: Market[];
+  };
+}
