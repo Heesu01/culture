@@ -55,6 +55,28 @@ const ChatBot = () => {
 
       <div className="flex-1 overflow-y-auto px-4 ">
         <ChatBotIntro />
+
+        {messages.length === 0 && (
+          <div className="mb-4">
+            <p className="text-body2 text-subtext mb-2">예시 질문:</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                "망원시장은 뭐가 맛있어?",
+                "부평깡통시장 화장실 있어?",
+                "광장시장 영업시간 알려줘!",
+              ].map((example, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setInput(example)}
+                  className="px-3 py-1 bg-chatbot text-body2 rounded-full hover:bg-gray-200"
+                >
+                  {example}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="flex flex-col gap-[20px]">
           {messages.map((msg, idx) =>
             msg.type === "user" ? (
@@ -105,7 +127,7 @@ const ChatBot = () => {
               : "bg-primary text-white"
           }`}
         >
-          {loading ? "로딩..." : "전송"}
+          {loading ? "■" : "전송"}
         </button>
       </div>
     </div>
