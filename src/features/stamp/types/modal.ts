@@ -9,3 +9,8 @@ export interface ConfirmModalProps {
   marketName: string;
   onClose: () => void;
 }
+
+export interface CompleteModalProps {
+  region: string;
+  onClose: () => void;
+}

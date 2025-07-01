@@ -110,6 +110,11 @@ const StampMap = () => {
     setShowConfirmModal(true);
   };
 
+  const handleModalClose = () => {
+    setShowModal(false);
+    setSelectedStamp(null);
+  };
+
   const handleConfirmModalClose = () => {
     setShowConfirmModal(false);
   };
@@ -124,7 +129,7 @@ const StampMap = () => {
           title="시장 위치 인증"
           description={`도장깨기를 완료하려면\n현재 ${selectedStamp.marketName} 위치를 인증해야해요!`}
           onConfirm={handleConfirm}
-          onCancel={handleConfirmModalClose}
+          onCancel={handleModalClose}
         />
       )}
 
