@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import Header from "@/shared/components/Header";
 import StampCard from "@/features/stamp/components/StampCard";
 import type { RegionProgress } from "@/features/stamp/types/stamp";
+import { useNavigate } from "react-router-dom";
 
 const MyStampList = () => {
   const [regions, setRegions] = useState<RegionProgress[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const data = {
@@ -24,7 +26,11 @@ const MyStampList = () => {
 
   return (
     <div className="h-full flex flex-col ">
-      <Header title="My 도감" showBack={true} />
+      <Header
+        title="My 도감"
+        showBack={true}
+        onBack={() => navigate("/stamp")}
+      />
 
       <div className="overflow-x-auto pt-[24px] mb-[32px]">
         <div className="flex gap-[20px] px-[32px]">

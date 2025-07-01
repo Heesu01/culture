@@ -13,10 +13,10 @@ const StampDetail = () => {
 
   const stamps = [
     { id: "1", name: "망원시장", visited: false },
-    { id: "2", name: "제물포시장", visited: true },
-    { id: "2-1", name: "강남구청시장", visited: true },
-    { id: "1-1", name: "망원시장", visited: true },
-    { id: "3", name: "제물포먹거리시장", visited: true },
+    { id: "2", name: "제물포시장", visited: false },
+    { id: "2-1", name: "강남구청시장", visited: false },
+    { id: "1-1", name: "망원시장", visited: false },
+    { id: "3", name: "제물포먹거리시장", visited: false },
   ];
 
   const visitedCount = stamps.filter((s) => s.visited).length;
@@ -29,18 +29,12 @@ const StampDetail = () => {
     }
   }, [progress]);
 
-  let bgColor = "bg-deactivate";
-  if (progress === 100) {
-    bgColor = "bg-primary";
-  } else if (progress > 0 && progress < 100) {
-    bgColor = "bg-sub";
-  }
-
+  const bgColor = progress === 0 ? "bg-deactivate" : "bg-primary";
   const backIcon = progress === 0 ? backImgB : backImgW;
   const textColor = progress === 0 ? "text-black" : "text-white";
 
   return (
-    <div className="flex flex-col h-screen pb-[71px]">
+    <div className="flex flex-col h-screen pb-[71px] mt-[-56px]">
       <div className={`relative flex items-center h-[56px] ${bgColor}`}>
         <button className="absolute left-[32px]" onClick={() => navigate(-1)}>
           <img
@@ -107,14 +101,16 @@ const StampDetail = () => {
                     className="w-[85px] h-[85px]"
                   />
                   <span
-                    className={`absolute top-[28%] flex items-center justify-center text-body1 font-bmdoM ${
+                    className={`absolute top-[32px] flex items-center justify-center text-body1 font-bmdoM ${
                       stamp.visited ? "text-primary" : "text-deactivate-text"
                     }`}
                   >
                     {displayName}
                   </span>
 
-                  <span className="text-body1 mt-[4px]">{stamp.name}</span>
+                  <span className="text-body1 mt-[4px] text-center whitespace-nowrap overflow-hidden text-ellipsis">
+                    {stamp.name}
+                  </span>
                 </div>
               );
             })}
