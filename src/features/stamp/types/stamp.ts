@@ -37,3 +37,20 @@ export interface GetRegionMarketBooksResponse {
   progressRate: number;
   markets: RawMarket[];
 }
+
+export interface StampMarket {
+  marketId: string;
+  marketName: string;
+  x: string;
+  y: string;
+  visited: boolean;
+  visitedAt: string | null;
+}
+
+export interface StampResponse {
+  statusCode: string;
+  message: string;
+  data: {
+    markets: StampMarket[];
+  };
+}

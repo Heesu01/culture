@@ -1,5 +1,8 @@
 import Axios from "@/shared/api/Axios";
-import type { GetRegionMarketBooksResponse } from "../types/stamp";
+import type {
+  GetRegionMarketBooksResponse,
+  StampResponse,
+} from "@/features/stamp/types/stamp";
 
 // 모든 지역 도감 진행률
 export const getRegionsProgress = async () => {
@@ -13,4 +16,9 @@ export const getRegionMarketBooks = async (
 ): Promise<GetRegionMarketBooksResponse> => {
   const response = await Axios.get(`/market-books?region=${region}`);
   return response.data.data;
+};
+
+export const fetchStampMarkets = async (): Promise<StampResponse> => {
+  const { data } = await Axios.get<StampResponse>("/market-books/all");
+  return data;
 };
