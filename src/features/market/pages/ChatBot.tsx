@@ -2,30 +2,47 @@ import { useState, useRef, useEffect } from "react";
 import Header from "@/shared/components/Header";
 import chatbotIcon from "@/features/market/assets/chatbot.png";
 import ChatBotIntro from "@/features/market/components/ChatBotIntro";
+import { sendChat } from "@/features/market/api/chatApi";
 
 const ChatBot = () => {
-  const [messages, setMessages] = useState([
-    { type: "user", text: "망원시장은 뭐가 맛있어?" },
-    {
-      type: "bot",
-      text: "망원시장은 떡볶이가 유명해요! 기름떡볶이도 맛있고요!",
-    },
-  ]);
+  const [messages, setMessages] = useState<
+    { type: "user" | "bot"; text: string }[]
+  >([]);
+
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
 
-    const newMessages = [
-      ...messages,
-      { type: "user", text: input },
-      { type: "bot", text: `(${input})에 대한 답변을 준비 중이에요!` },
-    ];
+    const userMessage = { type: "user", text: input } as const;
+    const loadingMessage = {
+      type: "bot",
+      text: "답변 준비 중입니다...",
+    } as const;
 
-    setMessages(newMessages);
+    setMessages((prev) => [...prev, userMessage, loadingMessage]);
     setInput("");
+    setLoading(true);
+
+    try {
+      const res = await sendChat({ question: input });
+
+      setMessages((prev) => [
+        ...prev.slice(0, -1),
+        { type: "bot", text: res.data.answer },
+      ]);
+    } catch (error) {
+      console.error("챗봇 API 실패:", error);
+      setMessages((prev) => [
+        ...prev.slice(0, -1),
+        { type: "bot", text: "죄송합니다. 답변에 실패했어요!" },
+      ]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -73,7 +90,7 @@ const ChatBot = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
+            if (e.key === "Enter" && !e.shiftKey && !loading) {
               e.preventDefault();
               handleSend();
             }
@@ -81,14 +98,14 @@ const ChatBot = () => {
         />
         <button
           onClick={handleSend}
-          disabled={!input.trim()}
+          disabled={!input.trim() || loading}
           className={`px-4 py-2 rounded-full text-body1 ${
-            !input.trim()
+            !input.trim() || loading
               ? "bg-deactivate text-deactivate-text cursor-not-allowed"
               : "bg-primary text-white"
           }`}
         >
-          전송
+          {loading ? "로딩..." : "전송"}
         </button>
       </div>
     </div>
