@@ -73,7 +73,7 @@ const Survey = () => {
         showClose={true}
         onClosePath="/"
       />
-      <div className="px-[32px] overflow-y-auto flex-1 max-h-[62vh]">
+      <div className="px-[32px] overflow-y-auto flex-1 max-h-[73vh]">
         <Question
           title={q.title}
           subtitle={q.subtitle}

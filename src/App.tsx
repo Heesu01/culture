@@ -4,12 +4,15 @@ import NavBar from "./shared/components/NavBar";
 const App = () => {
   const location = useLocation();
 
-  const hideNav = ["/login", "/signup"].includes(location.pathname);
+  const visiblePaths = ["/market", "/mypage", "/stamp"];
+  const showNav =
+    visiblePaths.includes(location.pathname) ||
+    location.pathname.startsWith("/market/");
 
   return (
     <div className="flex flex-col min-h-screen">
       <Outlet />
-      {!hideNav && <NavBar />}
+      {showNav && <NavBar />}
     </div>
   );
 };

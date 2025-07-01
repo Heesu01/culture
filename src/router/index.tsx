@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
       { path: "", element: <Navigate to="/market" replace /> },
       { path: "/market", element: <Home /> },
       { path: "market/:regionName", element: <RegionDetail /> },
-      { path: "/market/chatbot", element: <ChatBot /> },
+      { path: "/chatbot", element: <ChatBot /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
       { path: "recommend", element: <RecommendPage /> },
