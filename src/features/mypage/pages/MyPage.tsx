@@ -38,7 +38,7 @@ const MyPage = () => {
   }, []);
 
   return (
-    <div className="px-[32px] bg-grayBg flex flex-col h-screen">
+    <div className="px-[32px] bg-grayBg flex flex-col h-[93vh]">
       <Header title="마이페이지" showBack={false} bgColor="bg-grayBg" />
 
       <div className="flex items-center gap-[20px] mt-[32px] mb-[30px]">
