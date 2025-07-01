@@ -99,6 +99,16 @@ const StampDetail = () => {
         <div className="w-full h-full overflow-y-auto">
           <div className="grid grid-cols-3 gap-[28px] p-[32px]">
             {stamps.map((stamp) => {
+              const trimmedMarketName = stamp.marketName
+                .replace(/\([^)]*\)/g, "")
+                .replace(/（[^）]*）/g, "")
+                .trim();
+
+              const visibleMarketName =
+                trimmedMarketName.length > 8
+                  ? trimmedMarketName.slice(0, 8) + "..."
+                  : trimmedMarketName;
+
               const trimmed = stamp.marketName.replace(/시장$/, "");
               let displayName = trimmed;
               if (trimmed.length === 4) {
@@ -126,7 +136,7 @@ const StampDetail = () => {
                   </span>
 
                   <span className="text-body1 mt-[4px] text-center whitespace-nowrap overflow-hidden text-ellipsis ">
-                    {stamp.marketName}
+                    {visibleMarketName}
                   </span>
                 </div>
               );
