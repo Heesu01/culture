@@ -41,9 +41,7 @@ const StampDetail = () => {
 
   return (
     <div className="flex flex-col h-screen pb-[71px]">
-      <div className={`h-[44px] ${bgColor}`} />
-
-      <div className={`relative flex items-center h-[44px] ${bgColor}`}>
+      <div className={`relative flex items-center h-[56px] ${bgColor}`}>
         <button className="absolute left-[32px]" onClick={() => navigate(-1)}>
           <img
             src={backIcon}

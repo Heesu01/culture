@@ -9,6 +9,7 @@ import SurveyPage from "@/features/recommend/pages/Survey";
 import RecommendPage from "@/features/recommend/pages/Recommend";
 import RecommendResult from "@/features/recommend/pages/RecommendResult";
 import MyPage from "@/features/mypage/pages/MyPage";
+import Rank from "@/features/mypage/pages/Rank";
 import StampMap from "@/features/stamp/pages/StampMap";
 import Certification from "@/features/stamp/pages/Certification";
 import MyStampList from "@/features/stamp/pages/MyStampList";
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
       { path: "recommend/survey/:step", element: <SurveyPage /> },
       { path: "recommend/result", element: <RecommendResult /> },
       { path: "mypage", element: <MyPage /> },
+      { path: "rank", element: <Rank /> },
       { path: "stamp", element: <StampMap /> },
       { path: "stamp/certification", element: <Certification /> },
       { path: "stamp/mystamp", element: <MyStampList /> },
