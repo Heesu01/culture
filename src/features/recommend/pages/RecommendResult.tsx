@@ -34,7 +34,7 @@ const RecommendResult = () => {
         alt="추천 끝 캐릭터"
         className="mt-[70px] w-[361px] h-[223px] m-auto "
       />
-      <div className="fixed bottom-[121px] w-full flex justify-center px-[32px]">
+      <div className="fixed bottom-[50px] w-full flex justify-center px-[32px]">
         <Button
           variant="primary"
           onClick={handleGoMarket}

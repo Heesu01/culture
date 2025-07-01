@@ -3,7 +3,15 @@ import stampNo from "@/features/stamp/assets/stampNo.png";
 import type { StampBadgeProps } from "../types/stamp";
 
 const StampBadge = ({ name, visited }: StampBadgeProps) => {
-  const displayName = name.replace(/시장$/, "");
+  const trimmed = name.replace(/시장$/, "");
+
+  let displayName = trimmed;
+  if (trimmed.length === 4) {
+    displayName = trimmed.slice(0, 2);
+  } else if (trimmed.length >= 5) {
+    displayName = trimmed.slice(0, 3);
+  }
+
   return (
     <div className="relative inline-block w-[80px] h-[80px]">
       <img
@@ -12,7 +20,7 @@ const StampBadge = ({ name, visited }: StampBadgeProps) => {
         className="w-full h-full object-contain"
       />
       <span
-        className={`absolute inset-0 flex items-center justify-center font-bold  rotate-[10deg]
+        className={`absolute inset-0 flex items-center justify-center font-bmdoM rotate-[10deg]
           ${visited ? "text-primary" : "text-deactivate-text"}
           `}
       >

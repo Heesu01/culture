@@ -33,7 +33,7 @@ const ChatBot = () => {
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-screen px-[16px]">
+    <div className="flex flex-col h-[93vh] px-[16px] ">
       <Header title="챗봇" showBack={false} showClose={true} />
 
       <div className="flex-1 overflow-y-auto px-4 ">
@@ -66,7 +66,7 @@ const ChatBot = () => {
         </div>
       </div>
 
-      <div className="flex m-[16px] gap-2 pb-[71px]">
+      <div className="flex m-[16px] gap-2 pb-[20px]">
         <input
           className="flex-1 bg-chatbot rounded-full px-[15px] py-[10px] text-body1"
           placeholder="메시지를 입력해주세요."

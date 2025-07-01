@@ -38,7 +38,7 @@ const StampCard = ({ region, total, progress }: StampCardProps) => {
   if (progress === 100) {
     bgColor = "bg-primary";
   } else if (progress > 0 && progress < 100) {
-    bgColor = "bg-sub";
+    bgColor = "bg-gradient-to-b from-[#FFD633] to-[#FF7700]";
   }
 
   const handleClick = () => {

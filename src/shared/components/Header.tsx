@@ -7,6 +7,8 @@ interface CommonHeaderProps {
   showBack?: boolean;
   showClose?: boolean;
   onClosePath?: string;
+  onBack?: () => void;
+  bgColor?: string;
 }
 
 const Header = ({
@@ -14,13 +16,26 @@ const Header = ({
   showBack = true,
   showClose = false,
   onClosePath,
+  onBack,
+  bgColor = "bg-white",
 }: CommonHeaderProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative flex items-center h-[56px]">
+    <div
+      className={`fixed top-0 left-0 w-full flex items-center h-[56px] ${bgColor}`}
+    >
       {showBack && (
-        <button className="absolute left-[32px]" onClick={() => navigate(-1)}>
+        <button
+          className="absolute left-[32px]"
+          onClick={() => {
+            if (onBack) {
+              onBack();
+            } else {
+              navigate(-1);
+            }
+          }}
+        >
           <img
             src={backImg}
             alt="뒤로가기"

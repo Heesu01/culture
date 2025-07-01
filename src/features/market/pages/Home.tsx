@@ -3,7 +3,7 @@ import Header from "@/shared/components/Header";
 
 const Home = () => {
   return (
-    <div className="flex flex-col  h-screen">
+    <div className="flex flex-col  h-[93vh]">
       <Header title={"시장 지도"} showBack={false} />
       <div className="flex-grow">
         <Map />

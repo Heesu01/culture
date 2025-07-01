@@ -6,6 +6,7 @@ import Header from "@/shared/components/Header";
 import { useNavigate } from "react-router-dom";
 import chatbotIcon from "@/features/market/assets/chatbot.png";
 import my1 from "@/features/mypage/assets/my1.png";
+import AI from "@/features/mypage/assets/AI.png";
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -37,8 +38,8 @@ const MyPage = () => {
   }, []);
 
   return (
-    <div className="p-[32px] bg-grayBg flex flex-col h-screen">
-      <Header title="마이페이지" showBack={false} />
+    <div className="px-[32px] bg-grayBg flex flex-col h-[93vh]">
+      <Header title="마이페이지" showBack={false} bgColor="bg-grayBg" />
 
       <div className="flex items-center gap-[20px] mt-[32px] mb-[30px]">
         <div className="w-[90px] h-[90px] rounded-full bg-white flex items-center justify-center shadow">
@@ -47,7 +48,10 @@ const MyPage = () => {
         <span className="text-subtitle1">{userInfo?.name || "이름없음"}</span>
       </div>
 
-      <div className="bg-white rounded-[12px] px-[24px] py-[20px] mb-[20px] flex justify-between text-body3">
+      <button
+        onClick={() => navigate("/stamp/mystamp")}
+        className="w-full bg-white rounded-[12px] px-[24px] py-[20px] mb-[8px] flex justify-between text-body3"
+      >
         <span>도장깨기 완료</span>
         <span>
           총{" "}
@@ -55,18 +59,35 @@ const MyPage = () => {
             {userInfo?.visitMarketCount ?? 0} 시장
           </span>
         </span>
-      </div>
+      </button>
+
+      <button
+        onClick={() => navigate("/rank")}
+        className="w-full bg-white rounded-[12px] px-[24px] py-[20px] mb-[20px] flex justify-between text-body3"
+      >
+        <span>유저랭킹</span>
+        <span>
+          <span className="text-primary">{userInfo?.ranking ?? 0} 위</span>
+        </span>
+      </button>
 
       <div className="bg-white rounded-[12px] text-body3 flex justify-between divide-x divide-deactivate py-[17px]">
-        <button className="w-1/2 flex flex-col items-center py-[3px]">
+        <button
+          onClick={() => navigate("/stamp/mystamp")}
+          className="w-1/2 flex flex-col items-center py-[3px]"
+        >
           <img src={my1} alt="My 도감" className="w-[60px] h-[60px] mb-[8px]" />
           <span>My 도감</span>
         </button>
-        <button className="w-1/2 flex flex-col items-center py-[3px]">
+
+        <button
+          onClick={() => navigate("/recommend")}
+          className="w-1/2 flex flex-col items-center py-[3px]"
+        >
           <img
-            src={my1}
+            src={AI}
             alt="AI 시장코스"
-            className="w-[60px] h-[60px] mb-[8px]"
+            className="w-[32px] h-auto mb-[23px] mt-[15px] "
           />
           <span>AI 시장코스</span>
         </button>
@@ -74,7 +95,7 @@ const MyPage = () => {
 
       <button
         onClick={handleLogout}
-        className="mt-[30px] mx-auto bg-white text-deactivate-text text-body4 px-[15px] py-[8px] rounded-full  "
+        className="mt-[39px] mx-auto bg-white text-deactivate-text text-body4 px-[15px] py-[8px] rounded-full"
       >
         로그아웃
       </button>

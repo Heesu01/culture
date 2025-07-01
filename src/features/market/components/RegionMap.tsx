@@ -88,7 +88,7 @@ const RegionMap = () => {
           <div ref={mapElement} className="w-full h-full" />
 
           <button
-            onClick={() => navigate("/market/chatbot")}
+            onClick={() => navigate("/chatbot")}
             className="
               fixed bottom-[111px] right-[32px]
               w-[48px] h-[48px]
