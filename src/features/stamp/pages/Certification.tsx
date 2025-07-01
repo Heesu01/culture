@@ -9,6 +9,14 @@ const Certification = () => {
 
   const marketName = location.state?.marketName || "시장";
 
+  const trimmed = marketName.replace(/시장$/, "");
+  let displayName = trimmed;
+  if (trimmed.length === 4) {
+    displayName = trimmed.slice(0, 2);
+  } else if (trimmed.length >= 5) {
+    displayName = trimmed.slice(0, 3);
+  }
+
   const handleGoToMyCollection = () => {
     navigate("/stamp/mystamp");
   };
@@ -37,8 +45,8 @@ const Certification = () => {
             alt="스탬프 인증 완료"
             className="w-full h-auto"
           />
-          <span className="absolute top-[43%] left-[52%] -translate-x-1/2 -translate-y-1/2 text-[40px] font-bold rotate-[10deg]">
-            {marketName.replace(/시장$/, "")}
+          <span className="absolute top-[43%] left-[52%] -translate-x-1/2 -translate-y-1/2 text-[40px] font-bmdoL rotate-[10deg]">
+            {displayName}
           </span>
         </div>
       </div>
