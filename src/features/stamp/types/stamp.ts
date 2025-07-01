@@ -15,3 +15,25 @@ export interface RegionProgress {
   totalCount: number;
   progressRate: number;
 }
+
+export interface MarketStamp {
+  marketId: string;
+  marketName: string;
+  visited: boolean;
+}
+
+export interface RawMarket {
+  marketId: string;
+  marketName: string;
+  visited: boolean;
+  x: string;
+  y: string;
+  visitedAt: string | null;
+}
+
+export interface GetRegionMarketBooksResponse {
+  visitCount: number;
+  totalCount: number;
+  progressRate: number;
+  markets: RawMarket[];
+}
