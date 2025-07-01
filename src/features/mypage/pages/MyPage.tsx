@@ -6,6 +6,7 @@ import Header from "@/shared/components/Header";
 import { useNavigate } from "react-router-dom";
 import chatbotIcon from "@/features/market/assets/chatbot.png";
 import my1 from "@/features/mypage/assets/my1.png";
+import AI from "@/features/mypage/assets/AI.png";
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const MyPage = () => {
 
   return (
     <div className="px-[32px] bg-grayBg flex flex-col h-screen">
-      <Header title="마이페이지" showBack={false} />
+      <Header title="마이페이지" showBack={false} bgColor="bg-grayBg" />
 
       <div className="flex items-center gap-[20px] mt-[32px] mb-[30px]">
         <div className="w-[90px] h-[90px] rounded-full bg-white flex items-center justify-center shadow">
@@ -84,9 +85,9 @@ const MyPage = () => {
           className="w-1/2 flex flex-col items-center py-[3px]"
         >
           <img
-            src={my1}
+            src={AI}
             alt="AI 시장코스"
-            className="w-[60px] h-[60px] mb-[8px]"
+            className="w-[32px] h-auto mb-[23px] mt-[15px] "
           />
           <span>AI 시장코스</span>
         </button>
