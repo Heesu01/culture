@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
 import Header from "@/shared/components/Header";
 import StampBadge from "@/features/stamp/components/Stamp";
+import Modal from "@/features/stamp/components/Modal";
+import ConfirmModal from "@/features/stamp/components/ConfirmModal";
 
 const NAVER_MAP_CLIENT_ID = import.meta.env.VITE_NAVER_MAP_CLIENT_ID;
 
@@ -31,6 +33,11 @@ const StampMap = () => {
   const mapElement = useRef<HTMLDivElement>(null);
   const [stamps, setStamps] = useState<Stamp[]>([]);
   const mapInstance = useRef<naver.maps.Map | null>(null);
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedStamp, setSelectedStamp] = useState<Stamp | null>(null);
+
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   useEffect(() => {
     loadNaverMapScript(() => {
@@ -75,10 +82,10 @@ const StampMap = () => {
       );
 
       const badgeHTML = ReactDOMServer.renderToStaticMarkup(
-        <StampBadge name={market.marketName} />
+        <StampBadge name={market.marketName} visited={market.visited} />
       );
 
-      new window.naver.maps.Marker({
+      const marker = new window.naver.maps.Marker({
         position,
         map: mapInstance.current,
         icon: {
@@ -87,13 +94,51 @@ const StampMap = () => {
           anchor: new window.naver.maps.Point(40, 40),
         },
       });
+
+      window.naver.maps.Event.addListener(marker, "click", () => {
+        if (!market.visited) {
+          setSelectedStamp(market);
+          setShowModal(true);
+        }
+      });
     });
   }, [stamps]);
+
+  const handleConfirm = () => {
+    console.log("인증 시작:", selectedStamp?.marketName);
+    setShowModal(false);
+    setShowConfirmModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    setSelectedStamp(null);
+  };
+
+  const handleConfirmModalClose = () => {
+    setShowConfirmModal(false);
+  };
 
   return (
     <div className="flex flex-col h-screen">
       <Header title={"도장깨기"} showBack={true} />
       <div ref={mapElement} className="flex-1 w-full" />
+
+      {showModal && selectedStamp && (
+        <Modal
+          title="시장 위치 인증"
+          description={`도장깨기를 완료하려면\n현재 ${selectedStamp.marketName} 위치를 인증해야해요!`}
+          onConfirm={handleConfirm}
+          onCancel={handleModalClose}
+        />
+      )}
+
+      {showConfirmModal && selectedStamp && (
+        <ConfirmModal
+          marketName={selectedStamp.marketName}
+          onClose={handleConfirmModalClose}
+        />
+      )}
     </div>
   );
 };
