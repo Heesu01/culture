@@ -28,3 +28,8 @@ export const fetchStampMarkets = async (): Promise<StampResponse> => {
 export const postVisitedMarket = async (payload: { x: string; y: string }) => {
   return await Axios.post("/visited-markets", payload);
 };
+
+// 시장 이름으로 지역명 조회
+export const postRegionByMarket = async (payload: { marketName: string }) => {
+  return await Axios.post("/market-books/region-by-market", payload);
+};
