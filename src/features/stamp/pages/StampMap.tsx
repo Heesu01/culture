@@ -185,7 +185,7 @@ const StampMap = () => {
 
   return (
     <div className="flex flex-col h-[93vh] relative">
-      <Header title={"도장깨기"} showBack={true} />
+      <Header title={"도장깨기"} showBack={false} />
       <div className="bg-[#F9FAFB] px-4 py-3 text-center text-body2 text-gray-600 border-b border-gray-200">
         📍 현재 위치 주변의 전통시장을 둘러보고
         <br />
