@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ReactDOMServer from "react-dom/server";
 import Header from "@/shared/components/Header";
 import StampBadge from "@/features/stamp/components/Stamp";
 import Modal from "@/features/stamp/components/Modal";
 import ConfirmModal from "@/features/stamp/components/ConfirmModal";
-import { fetchStampMarkets } from "@/features/stamp/api/stampApi";
+import {
+  fetchStampMarkets,
+  postVisitedMarket,
+} from "@/features/stamp/api/stampApi";
 
 const NAVER_MAP_CLIENT_ID = import.meta.env.VITE_NAVER_MAP_CLIENT_ID;
 
@@ -31,6 +35,7 @@ type Stamp = {
 };
 
 const StampMap = () => {
+  const navigate = useNavigate();
   const mapElement = useRef<HTMLDivElement>(null);
   const [stamps, setStamps] = useState<Stamp[]>([]);
   const mapInstance = useRef<naver.maps.Map | null>(null);
@@ -134,10 +139,39 @@ const StampMap = () => {
     });
   }, [stamps]);
 
-  const handleConfirm = () => {
-    console.log("인증 시작:", selectedStamp?.marketName);
-    setShowModal(false);
-    setShowConfirmModal(true);
+  const handleConfirm = async () => {
+    if (!selectedStamp) return;
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          const x = String(pos.coords.longitude);
+          const y = String(pos.coords.latitude);
+
+          try {
+            const res = await postVisitedMarket({ x, y });
+
+            console.log("등록 결과:", res);
+
+            setShowModal(false);
+            setShowConfirmModal(true);
+          } catch (error) {
+            console.error("등록 실패:", error);
+
+            alert("위치 인증에 실패했습니다. 다시 시도해주세요!");
+            setShowModal(false);
+          }
+        },
+        (err) => {
+          console.error("위치 가져오기 실패:", err);
+          alert("위치를 가져올 수 없습니다.");
+          navigate("/stamp");
+        }
+      );
+    } else {
+      alert("브라우저가 위치 정보를 지원하지 않습니다.");
+      navigate("/stamp");
+    }
   };
 
   const handleModalClose = () => {
@@ -150,7 +184,7 @@ const StampMap = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen relative">
+    <div className="flex flex-col h-[93vh] relative">
       <Header title={"도장깨기"} showBack={true} />
       <div className="bg-[#F9FAFB] px-4 py-3 text-center text-body2 text-gray-600 border-b border-gray-200">
         📍 현재 위치 주변의 전통시장을 둘러보고

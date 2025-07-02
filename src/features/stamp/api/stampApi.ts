@@ -10,7 +10,7 @@ export const getRegionsProgress = async () => {
   return response.data.data;
 };
 
-// 지역별 시장 도장 모음
+// 지역별 시장 도감
 export const getRegionMarketBooks = async (
   region: string
 ): Promise<GetRegionMarketBooksResponse> => {
@@ -18,7 +18,13 @@ export const getRegionMarketBooks = async (
   return response.data.data;
 };
 
+// 전체 시장 도장 리스트 조회
 export const fetchStampMarkets = async (): Promise<StampResponse> => {
   const { data } = await Axios.get<StampResponse>("/market-books/all");
   return data;
+};
+
+// 시장 방문 인증 등록
+export const postVisitedMarket = async (payload: { x: string; y: string }) => {
+  return await Axios.post("/visited-markets", payload);
 };
