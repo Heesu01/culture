@@ -67,7 +67,7 @@ const MyPage = () => {
       >
         <span>유저랭킹</span>
         <span>
-          <span className="text-primary">{userInfo?.ranking ?? 0} 위</span>
+          <span className="text-primary">{userInfo?.rank ?? 0} 위</span>
         </span>
       </button>
 

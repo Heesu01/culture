@@ -2,5 +2,5 @@ export interface UserInfo {
   name: string;
   userId: string;
   visitMarketCount: number;
-  ranking: number;
+  rank: number;
 }

@@ -2,12 +2,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "@/shared/components/Button";
 import Header from "@/shared/components/Header";
 import stampResult from "@/features/stamp/assets/stampResult.png";
+import { useEffect, useState } from "react";
+import { postRegionByMarket } from "../api/stampApi";
 
 const Certification = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const marketName = location.state?.marketName || "시장";
+  const [region, setRegion] = useState<string | null>(null);
 
   const trimmed = marketName.replace(/시장$/, "");
   let displayName = trimmed;
@@ -18,8 +21,27 @@ const Certification = () => {
   }
 
   const handleGoToMyCollection = () => {
-    navigate("/stamp/mystamp");
+    if (region) {
+      navigate(`/stamp/mystamp/${region}`);
+    } else {
+      alert("지역 정보가 없어 My 도감으로 이동할 수 없습니다.");
+    }
   };
+  useEffect(() => {
+    const fetchRegion = async () => {
+      try {
+        const res = await postRegionByMarket({ marketName });
+        setRegion(res.data.region);
+      } catch (error) {
+        console.error("지역명 가져오기 실패:", error);
+        alert("지역 정보를 가져올 수 없습니다.");
+      }
+    };
+
+    if (marketName) {
+      fetchRegion();
+    }
+  }, [marketName]);
 
   return (
     <div className="flex flex-col h-screen">

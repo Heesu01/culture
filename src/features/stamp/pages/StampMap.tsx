@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ReactDOMServer from "react-dom/server";
 import Header from "@/shared/components/Header";
 import StampBadge from "@/features/stamp/components/Stamp";
 import Modal from "@/features/stamp/components/Modal";
 import ConfirmModal from "@/features/stamp/components/ConfirmModal";
+import {
+  fetchStampMarkets,
+  postVisitedMarket,
+} from "@/features/stamp/api/stampApi";
 
 const NAVER_MAP_CLIENT_ID = import.meta.env.VITE_NAVER_MAP_CLIENT_ID;
 
@@ -30,6 +35,7 @@ type Stamp = {
 };
 
 const StampMap = () => {
+  const navigate = useNavigate();
   const mapElement = useRef<HTMLDivElement>(null);
   const [stamps, setStamps] = useState<Stamp[]>([]);
   const mapInstance = useRef<naver.maps.Map | null>(null);
@@ -43,33 +49,62 @@ const StampMap = () => {
     loadNaverMapScript(() => {
       if (!mapElement.current || !window.naver) return;
 
-      mapInstance.current = new window.naver.maps.Map(mapElement.current, {
-        center: new window.naver.maps.LatLng(37.5665, 126.978),
-        zoom: 12,
-      });
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+
+            const map = new window.naver.maps.Map(mapElement.current, {
+              center: new window.naver.maps.LatLng(lat, lng),
+              zoom: 17,
+            });
+            mapInstance.current = map;
+
+            new window.naver.maps.Marker({
+              position: new window.naver.maps.LatLng(lat, lng),
+              map: map,
+              icon: {
+                content: `
+                <div class="w-[20px] h-[20px] bg-primary rounded-full border-2 border-white shadow"></div>
+              `,
+                size: new window.naver.maps.Size(14, 14),
+                anchor: new window.naver.maps.Point(7, 7),
+              },
+            });
+          },
+          (err) => {
+            console.warn("위치 못 가져옴:", err);
+            mapInstance.current = new window.naver.maps.Map(
+              mapElement.current,
+              {
+                center: new window.naver.maps.LatLng(37.5665, 126.978),
+                zoom: 12,
+              }
+            );
+          }
+        );
+      } else {
+        console.warn("Geolocation 지원 안됨");
+        mapInstance.current = new window.naver.maps.Map(mapElement.current, {
+          center: new window.naver.maps.LatLng(37.5665, 126.978),
+          zoom: 12,
+        });
+      }
     });
   }, []);
 
   useEffect(() => {
-    const mock = [
-      {
-        marketId: "00b8680f-5fd4-47d7-88bb-4ed5627e146e",
-        marketName: "평화시장",
-        visited: false,
-        visitedAt: null,
-        x: "127.1176729",
-        y: "37.53803468",
-      },
-      {
-        marketId: "11bcb44-987f-4bc5-8c10-46218f18aaaa",
-        marketName: "동원시장",
-        visited: true,
-        visitedAt: "2024-01-01",
-        x: "127.0921089",
-        y: "37.58982861",
-      },
-    ];
-    setStamps(mock);
+    const fetchMarkets = async () => {
+      try {
+        const res = await fetchStampMarkets();
+        setStamps(res.data.markets);
+      } catch (error) {
+        console.error("도감 데이터 불러오기 실패:", error);
+      }
+    };
+
+    fetchMarkets();
   }, []);
 
   useEffect(() => {
@@ -104,10 +139,39 @@ const StampMap = () => {
     });
   }, [stamps]);
 
-  const handleConfirm = () => {
-    console.log("인증 시작:", selectedStamp?.marketName);
-    setShowModal(false);
-    setShowConfirmModal(true);
+  const handleConfirm = async () => {
+    if (!selectedStamp) return;
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          const x = String(pos.coords.longitude);
+          const y = String(pos.coords.latitude);
+
+          try {
+            const res = await postVisitedMarket({ x, y });
+
+            console.log("등록 결과:", res);
+
+            setShowModal(false);
+            setShowConfirmModal(true);
+          } catch (error) {
+            console.error("등록 실패:", error);
+
+            alert("위치 인증에 실패했습니다. 다시 시도해주세요!");
+            setShowModal(false);
+          }
+        },
+        (err) => {
+          console.error("위치 가져오기 실패:", err);
+          alert("위치를 가져올 수 없습니다.");
+          navigate("/stamp");
+        }
+      );
+    } else {
+      alert("브라우저가 위치 정보를 지원하지 않습니다.");
+      navigate("/stamp");
+    }
   };
 
   const handleModalClose = () => {
@@ -120,8 +184,19 @@ const StampMap = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-[93vh] relative">
       <Header title={"도장깨기"} showBack={true} />
+      <div className="bg-[#F9FAFB] px-4 py-3 text-center text-body2 text-gray-600 border-b border-gray-200">
+        📍 현재 위치 주변의 전통시장을 둘러보고
+        <br />
+        아직 안 깬 도장을 클릭해 인증해보세요!
+      </div>
+      {/* <div className="absolute top-10 left-1/2 -translate-x-1/2 bg-black/60 text-white px-4 py-2 rounded-md text-body3 z-10 whitespace-nowrap">
+        현재 위치 주변의 전통시장을 둘러보고
+        <br />
+        아직 안 깬 도장을 클릭해 인증해보세요!
+      </div> */}
+
       <div ref={mapElement} className="flex-1 w-full" />
 
       {showModal && selectedStamp && (

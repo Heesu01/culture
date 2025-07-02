@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { getRegionMarketBooks } from "@/features/stamp/api/stampApi";
+import type { MarketStamp, RawMarket } from "@/features/stamp/types/stamp";
 import backImgB from "@/assets/back.png";
 import backImgW from "@/features/stamp/assets/backW.png";
 import TrueStamp from "@/features/stamp/assets/TrueStamp.png";
@@ -9,19 +11,34 @@ import CompleteModal from "@/features/stamp/components/CompleteModal";
 const StampDetail = () => {
   const navigate = useNavigate();
   const { region } = useParams<{ region: string }>();
+  const [stamps, setStamps] = useState<MarketStamp[]>([]);
   const [showModal, setShowModal] = useState(false);
-
-  const stamps = [
-    { id: "1", name: "망원시장", visited: false },
-    { id: "2", name: "제물포시장", visited: false },
-    { id: "2-1", name: "강남구청시장", visited: false },
-    { id: "1-1", name: "망원시장", visited: false },
-    { id: "3", name: "제물포먹거리시장", visited: false },
-  ];
 
   const visitedCount = stamps.filter((s) => s.visited).length;
   const totalCount = stamps.length;
-  const progress = Number(((visitedCount / totalCount) * 100).toFixed(0));
+  const progress = totalCount
+    ? Number(((visitedCount / totalCount) * 100).toFixed(0))
+    : 0;
+
+  useEffect(() => {
+    const fetchMarketBooks = async () => {
+      try {
+        if (!region) return;
+
+        const data = await getRegionMarketBooks(region);
+        const marketData: MarketStamp[] = data.markets.map((m: RawMarket) => ({
+          marketId: m.marketId,
+          marketName: m.marketName,
+          visited: m.visited,
+        }));
+        setStamps(marketData);
+      } catch (error) {
+        console.error("지역 스탬프 데이터 조회 실패", error);
+      }
+    };
+
+    fetchMarketBooks();
+  }, [region]);
 
   useEffect(() => {
     if (progress === 100) {
@@ -34,7 +51,7 @@ const StampDetail = () => {
   const textColor = progress === 0 ? "text-black" : "text-white";
 
   return (
-    <div className="flex flex-col h-screen pb-[71px] mt-[-56px]">
+    <div className="flex flex-col h-screen  mt-[-56px]">
       <div className={`relative flex items-center h-[56px] ${bgColor}`}>
         <button className="absolute left-[32px]" onClick={() => navigate(-1)}>
           <img
@@ -82,7 +99,17 @@ const StampDetail = () => {
         <div className="w-full h-full overflow-y-auto">
           <div className="grid grid-cols-3 gap-[28px] p-[32px]">
             {stamps.map((stamp) => {
-              const trimmed = stamp.name.replace(/시장$/, "");
+              const trimmedMarketName = stamp.marketName
+                .replace(/\([^)]*\)/g, "")
+                .replace(/（[^）]*）/g, "")
+                .trim();
+
+              const visibleMarketName =
+                trimmedMarketName.length > 8
+                  ? trimmedMarketName.slice(0, 8) + "..."
+                  : trimmedMarketName;
+
+              const trimmed = stamp.marketName.replace(/시장$/, "");
               let displayName = trimmed;
               if (trimmed.length === 4) {
                 displayName = trimmed.slice(0, 2);
@@ -92,24 +119,24 @@ const StampDetail = () => {
 
               return (
                 <div
-                  key={stamp.id}
+                  key={stamp.marketId}
                   className="relative flex flex-col items-center"
                 >
                   <img
                     src={stamp.visited ? TrueStamp : FalseStamp}
-                    alt={stamp.name}
+                    alt={stamp.marketName}
                     className="w-[85px] h-[85px]"
                   />
                   <span
-                    className={`absolute top-[32px] flex items-center justify-center text-body1 font-bmdoM ${
+                    className={`absolute top-[32px] flex items-center justify-center text-body1 font-bmdoM rotate-[10deg] ${
                       stamp.visited ? "text-primary" : "text-deactivate-text"
                     }`}
                   >
                     {displayName}
                   </span>
 
-                  <span className="text-body1 mt-[4px] text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                    {stamp.name}
+                  <span className="text-body1 mt-[4px] text-center whitespace-nowrap overflow-hidden text-ellipsis ">
+                    {visibleMarketName}
                   </span>
                 </div>
               );
