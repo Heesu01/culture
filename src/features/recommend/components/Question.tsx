@@ -10,7 +10,7 @@ const Question = ({
   grid = false,
 }: SurveyQuestionProps & { multiple?: boolean }) => {
   return (
-    <div className="text-center mt-[24px]">
+    <div className="text-center mt-[68px]">
       <div className="text-headline1">{title}</div>
       {subtitle && (
         <p className="text-body2 text-subtext mt-[8px] mb-[50px]">{subtitle}</p>
