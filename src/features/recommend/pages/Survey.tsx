@@ -83,6 +83,7 @@ const Survey = () => {
             market: res.data["추천시장"],
             x: res.data.x,
             y: res.data.y,
+            region: res.data.region,
           },
         });
       } catch (error) {

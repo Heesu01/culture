@@ -7,13 +7,14 @@ const RecommendResult = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { market, x, y } = location.state || {};
+  const { market, x, y, region } = location.state || {};
   const marketName = market || "추천시장";
 
   const handleGoMarket = () => {
-    navigate("/", { state: { x, y } });
+    navigate(`/market/${region}`, {
+      state: { x, y, marketName },
+    });
   };
-
   return (
     <div className="flex flex-col h-full">
       <Header

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { regions } from "@/features/market/data/regions";
 import markerImg from "@/features/market/assets/marker.png";
 import chatbotIcon from "@/features/market/assets/chatbot.png";
@@ -23,12 +23,24 @@ function loadNaverMapScript(callback: () => void) {
 
 const RegionMap = () => {
   const { regionName } = useParams<{ regionName: string }>();
-  const mapElement = useRef<HTMLDivElement>(null);
+  const { state } = useLocation();
   const navigate = useNavigate();
+  const mapElement = useRef<HTMLDivElement>(null);
+
   const [markets, setMarkets] = useState<Market[]>([]);
   const [showHint, setShowHint] = useState(true);
 
   const region = regions.find((r) => r.name === regionName);
+
+  const selectedMarket = useMemo(() => {
+    return state?.x && state?.y
+      ? {
+          x: state.x,
+          y: state.y,
+          marketName: state.marketName || "추천시장",
+        }
+      : null;
+  }, [state]);
 
   useEffect(() => {
     if (!regionName) return;
@@ -47,16 +59,24 @@ const RegionMap = () => {
   }, [regionName]);
 
   useEffect(() => {
-    if (!region || !markets.length) return;
+    if (!region || !window.naver) return;
 
     loadNaverMapScript(() => {
       if (!mapElement.current || !window.naver) return;
 
+      const centerLat = selectedMarket?.y
+        ? Number(selectedMarket.y)
+        : region.lat;
+      const centerLng = selectedMarket?.x
+        ? Number(selectedMarket.x)
+        : region.lng;
+
       const map = new window.naver.maps.Map(mapElement.current, {
-        center: new window.naver.maps.LatLng(region.lat, region.lng),
-        zoom: 12,
+        center: new window.naver.maps.LatLng(centerLat, centerLng),
+        zoom: selectedMarket ? 16 : 12,
       });
 
+      // 기존 마커들
       markets.forEach((market) => {
         const position = new window.naver.maps.LatLng(
           Number(market.y),
@@ -86,30 +106,49 @@ const RegionMap = () => {
         });
       });
 
+      // 추천된 시장 마커
+      if (selectedMarket?.x && selectedMarket?.y) {
+        const pos = new window.naver.maps.LatLng(
+          Number(selectedMarket.y),
+          Number(selectedMarket.x)
+        );
+
+        new window.naver.maps.Marker({
+          position: pos,
+          map: map,
+          icon: {
+            content: `
+              <div class="marker-wrapper flex flex-col items-center">
+                <div class="marker-label text-body3 bg-primary text-white px-[12px] py-[4px] rounded-[8px] shadow whitespace-nowrap">
+                  ${selectedMarket.marketName}
+                </div>
+                <img src="${markerImg}" alt="마커" class="w-[20px] mt-[4px]" />
+              </div>
+            `,
+            size: new window.naver.maps.Size(80, 50),
+            anchor: new window.naver.maps.Point(40, 50),
+          },
+        });
+
+        map.setCenter(pos);
+        map.setZoom(16);
+      }
+
       const toggleLabels = () => {
         const zoom = map.getZoom();
         const labels = document.querySelectorAll(".marker-label");
 
         labels.forEach((label) => {
-          if (zoom >= 14) {
-            (label as HTMLElement).style.display = "block";
-          } else {
-            (label as HTMLElement).style.display = "none";
-          }
+          (label as HTMLElement).style.display = zoom >= 14 ? "block" : "none";
         });
 
-        if (zoom >= 14) {
-          setShowHint(false);
-        } else {
-          setShowHint(true);
-        }
+        setShowHint(zoom < 14);
       };
 
       toggleLabels();
-
       window.naver.maps.Event.addListener(map, "zoom_changed", toggleLabels);
     });
-  }, [region, markets]);
+  }, [region, markets, selectedMarket]);
 
   return (
     <div className="relative w-full h-full">

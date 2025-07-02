@@ -114,7 +114,7 @@ export const regions: Region[] = [
     video: "https://www.youtube.com/embed/ScMzIvxBSi4",
   },
   {
-    name: "제주도",
+    name: "제주",
     lat: 33.3996,
     lng: 126.7312,
     description: "제주도 전통시장 정보.",
