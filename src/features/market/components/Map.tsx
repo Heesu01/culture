@@ -33,14 +33,17 @@ const Map = () => {
       });
 
       regions.forEach((region) => {
-        const position = new window.naver.maps.LatLng(region.lat, region.lng);
+        const position = new window.naver.maps.LatLng(
+          region.markerLat,
+          region.markerLng
+        );
 
         const marker = new window.naver.maps.Marker({
           position,
           map: map,
           icon: {
             content: `
-              <div class="relative inline-block bg-black text-white px-2 py-1 rounded-md text-body3">
+              <div class="relative inline-block bg-black text-white px-2 py-1 rounded-md text-body3 whitespace-nowrap">
                 ${region.name}
                 <div class="absolute left-1/2 -translate-x-1/2 -bottom-[6px] w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-l-transparent border-r-transparent border-t-black"></div>
               </div>

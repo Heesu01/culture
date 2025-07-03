@@ -111,7 +111,7 @@ const Survey = () => {
         title="AI 추천 코스"
         showBack={false}
         showClose={true}
-        onClosePath="/"
+        onClosePath="/market"
       />
 
       {loading ? (
@@ -126,7 +126,7 @@ const Survey = () => {
           </p>
         </div>
       ) : (
-        <div className="px-[32px] overflow-y-auto flex-1 max-h-[73vh]">
+        <div className="px-[32px] overflow-y-auto scrollbar-hide flex-1 max-h-[73vh]">
           <Question
             title={q.title}
             subtitle={q.subtitle}

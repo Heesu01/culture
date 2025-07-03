@@ -33,7 +33,7 @@ const MyStampList = () => {
         onBack={() => navigate("/stamp")}
       />
 
-      <div className="overflow-x-auto pt-[24px] mb-[32px]">
+      <div className="overflow-x-auto scrollbar-hide pt-[24px] mb-[32px]">
         <div className="flex gap-[20px] px-[32px]">
           {activeRegions.map((region) => (
             <StampCard
@@ -46,7 +46,7 @@ const MyStampList = () => {
         </div>
       </div>
 
-      <div className="overflow-x-auto pb-[24px]">
+      <div className="overflow-x-auto scrollbar-hide pb-[24px]">
         <div className="flex gap-[20px] px-[32px]">
           {inactiveRegions.map((region) => (
             <StampCard

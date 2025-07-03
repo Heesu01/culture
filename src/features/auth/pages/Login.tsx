@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/shared/components/Header";
 import AuthInput from "@/features/auth/components/AuthInput";
@@ -11,6 +11,13 @@ const Login = () => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      navigate("/market");
+    }
+  }, [navigate]);
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {};

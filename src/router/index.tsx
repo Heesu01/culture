@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import App from "@/App";
 import Home from "@/features/market/pages/Home";
 import RegionDetail from "@/features/market/pages/RegionDetail";
@@ -14,16 +14,17 @@ import StampMap from "@/features/stamp/pages/StampMap";
 import Certification from "@/features/stamp/pages/Certification";
 import MyStampList from "@/features/stamp/pages/MyStampList";
 import StampDetail from "@/features/stamp/pages/StampDetail";
+import Splash from "@/shared/components/Spash";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      { path: "", element: <Navigate to="/market" replace /> },
-      { path: "/market", element: <Home /> },
+      { index: true, element: <Splash /> },
+      { path: "market", element: <Home /> },
       { path: "market/:regionName", element: <RegionDetail /> },
-      { path: "/chatbot", element: <ChatBot /> },
+      { path: "chatbot", element: <ChatBot /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
       { path: "recommend", element: <RecommendPage /> },
