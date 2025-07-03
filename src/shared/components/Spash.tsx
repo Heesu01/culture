@@ -28,7 +28,7 @@ const Splash = () => {
 
   return (
     <div
-      className={`flex flex-col items-center justify-center h-screen bg-gradient-to-br from-[#FF8000] to-[#FFAE00] mt-[-56px] transition-opacity duration-500 ${fadeClass}`}
+      className={`flex flex-col items-center justify-center h-screen bg-gradient-to-br from-[#FF6200] to-[#FF8000] mt-[-56px] transition-opacity duration-500 ${fadeClass}`}
     >
       <img src={logo} alt="로고" className="w-40" />
     </div>
