@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
-import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
+import { VitePWA } from "vite-plugin-pwa";
+import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
@@ -11,7 +12,33 @@ export default defineConfig(({ mode }) => {
   const isDev = mode === "development";
 
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [
+      react(),
+      tailwindcss(),
+      VitePWA({
+        registerType: "autoUpdate",
+        manifest: {
+          name: "시장에 가면",
+          short_name: "시장에가면",
+          start_url: "/",
+          display: "standalone",
+          background_color: "#ffffff",
+          theme_color: "#FF8000",
+          icons: [
+            {
+              src: "/vite.svg",
+              sizes: "192x192",
+              type: "image/png",
+            },
+            {
+              src: "/vite.svg",
+              sizes: "512x512",
+              type: "image/png",
+            },
+          ],
+        },
+      }),
+    ],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "src"),
