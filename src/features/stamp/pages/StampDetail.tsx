@@ -96,7 +96,7 @@ const StampDetail = () => {
       </div>
 
       <div className="flex-1 min-h-0 flex justify-center items-center">
-        <div className="w-full h-full overflow-y-auto">
+        <div className="w-full h-full overflow-y-auto scrollbar-hide">
           <div className="grid grid-cols-3 gap-[28px] p-[32px]">
             {stamps.map((stamp) => {
               const trimmedMarketName = stamp.marketName

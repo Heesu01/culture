@@ -53,7 +53,7 @@ const ChatBot = () => {
     <div className="flex flex-col h-[93vh] px-[16px] ">
       <Header title="챗봇" showBack={false} showClose={true} />
 
-      <div className="flex-1 overflow-y-auto px-4 ">
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-4 ">
         <ChatBotIntro />
 
         {messages.length === 0 && (
