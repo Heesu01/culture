@@ -14,8 +14,8 @@ const Splash = () => {
   }, [navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-[#FF8000] to-[#FFAE00]">
-      <img src={logo} alt="로고" className="w-40 mb-4" />
+    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-[#FF8000] to-[#FFAE00] mt-[-56px]">
+      <img src={logo} alt="로고" className="w-40 " />
     </div>
   );
 };

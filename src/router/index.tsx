@@ -17,14 +17,14 @@ import StampDetail from "@/features/stamp/pages/StampDetail";
 import Splash from "@/shared/components/Spash";
 
 export const router = createBrowserRouter([
-  { path: "/", element: <Splash /> },
   {
     path: "/",
     element: <App />,
     children: [
-      { path: "/market", element: <Home /> },
+      { index: true, element: <Splash /> },
+      { path: "market", element: <Home /> },
       { path: "market/:regionName", element: <RegionDetail /> },
-      { path: "/chatbot", element: <ChatBot /> },
+      { path: "chatbot", element: <ChatBot /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
       { path: "recommend", element: <RecommendPage /> },
