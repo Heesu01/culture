@@ -67,7 +67,7 @@ const Survey = () => {
           ? (answers[0] as number[])
               .map((i) => surveyQuestions[0].options[i])
               .join(",")
-          : "",
+          : surveyQuestions[0].options[answers[0] as number] || "",
         "2": mapPerson(surveyQuestions[1].options[answers[1] as number]),
         "3": mapTime(surveyQuestions[2].options[answers[2] as number]),
         "4": mapView(surveyQuestions[3].options[answers[3] as number]),
