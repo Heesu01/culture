@@ -23,15 +23,15 @@ export default defineConfig(({ mode }) => {
           start_url: "/",
           display: "standalone",
           background_color: "#ffffff",
-          theme_color: "#FF8000",
+          theme_color: "#ffffff",
           icons: [
             {
-              src: "/vite.svg",
+              src: "/logo.png",
               sizes: "192x192",
               type: "image/png",
             },
             {
-              src: "/vite.svg",
+              src: "/logo.png",
               sizes: "512x512",
               type: "image/png",
             },

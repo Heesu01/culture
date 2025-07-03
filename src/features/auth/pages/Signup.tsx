@@ -49,6 +49,7 @@ const Signup = () => {
     try {
       const res = await signup({ userId, password, name });
       console.log(res.message);
+      navigate("/market");
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
       const message = err.response?.data?.message || "회원가입 실패";
