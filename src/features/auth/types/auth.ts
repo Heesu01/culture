@@ -15,8 +15,11 @@ export interface LoginPayload {
 }
 
 export interface LoginResponse {
-  token: string;
-  refreshToken: string;
+  statusCode: string;
+  message: string;
+  data: {
+    accessToken: string;
+  };
 }
 
 // 회원가입 api 요청 페이로드와 응답 타입 정의

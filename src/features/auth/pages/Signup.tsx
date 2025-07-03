@@ -61,7 +61,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="relative flex flex-col min-h-screen px-[32px]">
+    <div className="relative flex flex-col h-[93vh] px-[32px]">
       <Header title="회원가입" showBack={false} />
 
       <div className="flex flex-col justify-center mt-[26px] gap-[22px]">

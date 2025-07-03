@@ -42,7 +42,11 @@ const Login = () => {
     try {
       const res = await login({ userId, password });
       console.log("로그인 성공:", res);
-      navigate("/");
+
+      const accessToken = res.data.accessToken;
+      localStorage.setItem("accessToken", accessToken);
+
+      navigate("/market");
     } catch (error) {
       console.error("로그인 실패:", error);
 
@@ -57,7 +61,7 @@ const Login = () => {
   };
 
   return (
-    <div className="relative flex flex-col min-h-screen px-[32px]">
+    <div className="relative flex flex-col h-[93vh] px-[32px]">
       <Header title="로그인" showBack={false} />
 
       <div className="flex flex-col justify-center mt-[26px] gap-[22px]">
