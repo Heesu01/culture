@@ -1,10 +1,13 @@
-export type Region = {
+export interface Region {
   name: string;
-  lat: number;
-  lng: number;
+  markerLat: number;
+  markerLng: number;
+  centerLat: number;
+  centerLng: number;
   description: string;
   video: string;
-};
+}
+
 export interface RegionModalProps {
   region: Region;
 }

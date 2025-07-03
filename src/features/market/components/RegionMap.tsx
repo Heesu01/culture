@@ -64,16 +64,34 @@ const RegionMap = () => {
     loadNaverMapScript(() => {
       if (!mapElement.current || !window.naver) return;
 
+      const smallRegions = [
+        "서울",
+        "인천",
+        "대전",
+        "세종",
+        "울산",
+        "부산",
+        "광주",
+        "제주도",
+        "대구",
+      ];
+      const initialZoom = selectedMarket
+        ? 16
+        : smallRegions.includes(regionName || "")
+        ? 12
+        : 10;
+
       const centerLat = selectedMarket?.y
         ? Number(selectedMarket.y)
-        : region.lat;
+        : region.centerLat;
+
       const centerLng = selectedMarket?.x
         ? Number(selectedMarket.x)
-        : region.lng;
+        : region.centerLng;
 
       const map = new window.naver.maps.Map(mapElement.current, {
         center: new window.naver.maps.LatLng(centerLat, centerLng),
-        zoom: selectedMarket ? 16 : 12,
+        zoom: initialZoom,
       });
 
       // 기존 마커들
@@ -139,16 +157,16 @@ const RegionMap = () => {
         const labels = document.querySelectorAll(".marker-label");
 
         labels.forEach((label) => {
-          (label as HTMLElement).style.display = zoom >= 14 ? "block" : "none";
+          (label as HTMLElement).style.display = zoom >= 13 ? "block" : "none";
         });
 
-        setShowHint(zoom < 14);
+        setShowHint(zoom < 13);
       };
 
       toggleLabels();
       window.naver.maps.Event.addListener(map, "zoom_changed", toggleLabels);
     });
-  }, [region, markets, selectedMarket]);
+  }, [region, markets, selectedMarket, regionName]);
 
   return (
     <div className="relative w-full h-full">
