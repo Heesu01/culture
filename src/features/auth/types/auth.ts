@@ -30,5 +30,9 @@ export interface SignupPayload {
 }
 
 export interface SignupResponse {
+  statusCode: string;
   message: string;
+  data: {
+    accessToken: string;
+  };
 }
