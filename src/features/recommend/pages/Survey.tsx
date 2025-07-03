@@ -111,7 +111,7 @@ const Survey = () => {
         title="AI 추천 코스"
         showBack={false}
         showClose={true}
-        onClosePath="/"
+        onClosePath="/market"
       />
 
       {loading ? (

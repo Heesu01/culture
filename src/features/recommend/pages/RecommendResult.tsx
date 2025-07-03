@@ -21,7 +21,7 @@ const RecommendResult = () => {
         title="AI 추천 코스"
         showBack={false}
         showClose={true}
-        onClosePath="/"
+        onClosePath="/market"
       />
 
       <div className="flex flex-col items-center justify-center text-center mt-[68px]">

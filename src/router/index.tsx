@@ -14,13 +14,14 @@ import StampMap from "@/features/stamp/pages/StampMap";
 import Certification from "@/features/stamp/pages/Certification";
 import MyStampList from "@/features/stamp/pages/MyStampList";
 import StampDetail from "@/features/stamp/pages/StampDetail";
+import Splash from "@/shared/components/Spash";
 
 export const router = createBrowserRouter([
+  { path: "/", element: <Splash /> },
   {
     path: "/",
     element: <App />,
     children: [
-      { path: "", element: <Navigate to="/market" replace /> },
       { path: "/market", element: <Home /> },
       { path: "market/:regionName", element: <RegionDetail /> },
       { path: "/chatbot", element: <ChatBot /> },
