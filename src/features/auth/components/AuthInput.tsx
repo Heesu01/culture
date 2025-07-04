@@ -23,7 +23,7 @@ const AuthInput = ({
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full rounded-[16px] bg-deactivate p-[20px] text-body2 outline-none"
+          className="w-full rounded-[16px] bg-deactivate p-[20px] text-[16px] outline-none"
         />
         {showToggle && (
           <button
