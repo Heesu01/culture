@@ -7,8 +7,9 @@ export const regions: Region[] = [
     markerLng: 127.3,
     centerLat: 37.5598,
     centerLng: 126.9734,
-    description: "대한민국 수도 서울의 대표 전통시장 정보입니다.",
-    video: "https://www.youtube.com/embed/ScMzIvxBSi4",
+    description:
+      "서울의 전통시장에서 빈대떡, 떡볶이 같은 맛있는 길거리 음식을 즐기고 따뜻한 시장 정을 느껴보세요!",
+    video: "https://www.youtube.com/watch?v=mnv0hR7Fu7c",
   },
   {
     name: "경기도",
