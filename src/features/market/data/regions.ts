@@ -9,7 +9,7 @@ export const regions: Region[] = [
     centerLng: 126.9734,
     description:
       "서울의 전통시장에서 빈대떡, 떡볶이 같은 맛있는 길거리 음식을 즐기고 따뜻한 시장 정을 느껴보세요!",
-    video: "https://www.youtube.com/watch?v=mnv0hR7Fu7c",
+    video: "https://www.youtube.com/embed/mnv0hR7Fu7c?si=kbHzXnu4EAPUAXL4",
   },
   {
     name: "경기도",
