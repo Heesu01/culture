@@ -17,7 +17,8 @@ export const regions: Region[] = [
     markerLng: 127.8183,
     centerLat: 37.44556,
     centerLng: 126.96361,
-    description: "경기도 주요 전통시장 소개입니다.",
+    description:
+      "신선한 먹거리와 지역 특산물 등 다양한 즐길 거리가 넘치는 경기도 전통시장으로 떠나보세요!",
     video: "https://www.youtube.com/embed/ScMzIvxBSi4",
   },
   {
@@ -26,7 +27,8 @@ export const regions: Region[] = [
     markerLng: 126.9052,
     centerLat: 37.4900394,
     centerLng: 126.6730485,
-    description: "인천 지역 전통시장 정보입니다.",
+    description:
+      "인천 전통시장은 신포국제시장과 소래포구 어시장 등 바다와 함께하는 맛있는 시장이 유명합니다.",
     video: "https://www.youtube.com/embed/ScMzIvxBSi4",
   },
   {
@@ -35,7 +37,8 @@ export const regions: Region[] = [
     markerLng: 128.5555,
     centerLat: 37.8228,
     centerLng: 128.5555,
-    description: "강원도의 특색있는 전통시장들!",
+    description:
+      "바다와 산이 주는 신선한 해산물과 특산물이 가득한 맛의 시장으로 구경하고 먹는 재미가 넘쳐나요.",
     video: "https://www.youtube.com/embed/ScMzIvxBSi4",
   },
   {
@@ -80,7 +83,8 @@ export const regions: Region[] = [
     markerLng: 127.153,
     centerLat: 35.7175,
     centerLng: 127.153,
-    description: "전라북도의 유명한 전통시장.",
+    description:
+      "전통과 현대가 어우러진 전라북도의 전통시장은 따뜻한 인심과 감성 넘치는 먹거리로 여행의 즐거움을 더해주는 공간입니다!",
     video: "https://www.youtube.com/embed/ScMzIvxBSi4",
   },
   {
@@ -89,7 +93,8 @@ export const regions: Region[] = [
     markerLng: 127.3,
     centerLat: 35.154326,
     centerLng: 126.901346,
-    description: "광주광역시 전통시장 정보.",
+    description:
+      "광주의 전통시장은 오랜 역사 속에서 지역민의 삶과 함께 숨 쉬며, 정겨운 분위기와 활기가 가득한 현장을 느껴보세요!",
     video: "https://www.youtube.com/embed/ScMzIvxBSi4",
   },
   {
@@ -98,7 +103,8 @@ export const regions: Region[] = [
     markerLng: 126.863,
     centerLat: 34.8161,
     centerLng: 126.863,
-    description: "전라남도 전통시장 소개.",
+    description:
+      "풍요로운 자연과 함께하는 전라남도의 전통시장은 신선한 해산물과 깊은 맛의 향토 음식이 가득한 삶의 공간을 만나보세요!",
     video: "https://www.youtube.com/embed/ScMzIvxBSi4",
   },
   {
@@ -107,7 +113,8 @@ export const regions: Region[] = [
     markerLng: 128.8889,
     centerLat: 36.541716,
     centerLng: 128.464613,
-    description: "경상북도 전통시장 정보.",
+    description:
+      "옛 멋 가득한 전통시장에 푸짐한 인심이 살아 있어요. 경북의 진짜 맛과 정, 지금 영상으로 만나보세요!",
     video: "https://www.youtube.com/embed/ScMzIvxBSi4",
   },
   {
@@ -116,7 +123,8 @@ export const regions: Region[] = [
     markerLng: 128.9014,
     centerLat: 35.89024,
     centerLng: 128.56141,
-    description: "대구광역시 대표 전통시장.",
+    description:
+      "매콤한 찜갈비와 달콤한 납작만두의 유혹! 대구 시장의 별미, 영상으로 바로 구경해요!",
     video: "https://www.youtube.com/embed/ScMzIvxBSi4",
   },
   {
@@ -125,7 +133,8 @@ export const regions: Region[] = [
     markerLng: 128.2132,
     centerLat: 35.15,
     centerLng: 128.1,
-    description: "경상남도 전통시장 정보.",
+    description:
+      "골목마다 푸짐한 먹거리가 넘쳐나는 경남 시장! 따뜻한 시장 인심, 영상으로 함께 만나봐요!",
     video: "https://www.youtube.com/embed/ScMzIvxBSi4",
   },
   {
@@ -134,7 +143,8 @@ export const regions: Region[] = [
     markerLng: 129.6114,
     centerLat: 35.54382,
     centerLng: 129.32917,
-    description: "울산 전통시장 정보입니다.",
+    description:
+      "싱싱한 해산물이 한가득 펼쳐진 바닷가 시장! 울산 바다의 맛을 영상으로 느껴보세요!",
     video: "https://www.youtube.com/embed/ScMzIvxBSi4",
   },
   {
@@ -143,7 +153,8 @@ export const regions: Region[] = [
     markerLng: 129.2756,
     centerLat: 35.157714,
     centerLng: 129.059165,
-    description: "부산광역시 대표 전통시장.",
+    description:
+      "전국에서 소문난 시장 천국, 부산! 국제시장부터 자갈치시장까지, 지금 영상으로 여행해요!",
     video: "https://www.youtube.com/embed/ScMzIvxBSi4",
   },
   {
@@ -152,7 +163,8 @@ export const regions: Region[] = [
     markerLng: 126.7312,
     centerLat: 33.46707,
     centerLng: 126.5447,
-    description: "제주도 전통시장 정보.",
+    description:
+      "제주의 전통시장은 섬의 정취와 다채로운 먹거리, 특산물로 여행자들의 오감을 사로잡는 살아있는 현장을 느껴보세요!",
     video: "https://www.youtube.com/embed/ScMzIvxBSi4",
   },
 ];
