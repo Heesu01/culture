@@ -47,7 +47,8 @@ export const regions: Region[] = [
     markerLng: 126.8,
     centerLat: 36.5184,
     centerLng: 126.8,
-    description: "충청남도 전통시장 정보.",
+    description:
+      "바다와 들에서 온 신선한 재료, 그리고 인심 좋은 상인들이 만드는 충남 시장만의 특별한 맛 여행, 꼭 느껴보세요!",
     video: "https://www.youtube.com/embed/KgwLtyTcMr0?si=TWGewItX8N_7vb4_",
   },
   {
@@ -56,7 +57,8 @@ export const regions: Region[] = [
     markerLng: 127.789,
     centerLat: 36.7801,
     centerLng: 127.789,
-    description: "충청북도의 다양한 시장 소식.",
+    description:
+      "신선한 재료와 젊은 감각이 어우러진 충청북도 전통시장은 이색 먹거리와 활기찬 분위기로, 지역만의 특별한 맛과 문화를 한자리에서 만날 수 있는 곳이에요!",
     video: "https://www.youtube.com/embed/Gy_TvGSzLD0?si=iNutlLXJT6wJVKhk",
   },
   {
@@ -65,7 +67,8 @@ export const regions: Region[] = [
     markerLng: 127.389,
     centerLat: 36.5548774,
     centerLng: 127.2784328,
-    description: "세종시 전통시장 정보입니다.",
+    description:
+      "정겨운 상인들의 인심이 가득한 세종시 전통시장은 현대적인 시설과 오랜 전통이 어우러진, 누구나 편하게 들러 특별한 맛과 따뜻한 분위기를 즐길 수 있는 곳이에요!",
     video: "https://www.youtube.com/embed/iWUMjktk8TQ?si=PSo-k-POddQ890hg",
   },
   {
@@ -74,7 +77,8 @@ export const regions: Region[] = [
     markerLng: 127.7845,
     centerLat: 36.34639,
     centerLng: 127.41583,
-    description: "대전 지역 전통시장 가이드.",
+    description:
+      "대전 전통시장은 다양한 야시장 먹거리와 풍성한 음식, 활기찬 분위기로 한국의 맛과 즐거움을 한 번에 느낄 수 있는 곳이에요!",
     video: "https://www.youtube.com/embed/tvjPCTYfzEo?si=gL0xMaP5CcDN-o3w",
   },
   {
