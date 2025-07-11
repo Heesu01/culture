@@ -9,3 +9,7 @@ export const getMarkets = async (
   );
   return data;
 };
+
+export const getMarketBoards = async (marketName: string) => {
+  return await Axios.get(`/boards/all?marketName=${marketName}`);
+};

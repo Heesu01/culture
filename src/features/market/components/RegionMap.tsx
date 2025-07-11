@@ -94,7 +94,6 @@ const RegionMap = () => {
         zoom: initialZoom,
       });
 
-      // 기존 마커들
       markets.forEach((market) => {
         const position = new window.naver.maps.LatLng(
           Number(market.y),
@@ -119,12 +118,12 @@ const RegionMap = () => {
         });
 
         window.naver.maps.Event.addListener(marker, "click", () => {
-          map.setCenter(position);
-          map.setZoom(18);
+          navigate(
+            `/market/${regionName}/${encodeURIComponent(market.marketName)}`
+          );
         });
       });
 
-      // 추천된 시장 마커
       if (selectedMarket?.x && selectedMarket?.y) {
         const pos = new window.naver.maps.LatLng(
           Number(selectedMarket.y),
@@ -166,7 +165,7 @@ const RegionMap = () => {
       toggleLabels();
       window.naver.maps.Event.addListener(map, "zoom_changed", toggleLabels);
     });
-  }, [region, markets, selectedMarket, regionName]);
+  }, [region, markets, selectedMarket, regionName, navigate]);
 
   return (
     <div className="relative w-full h-full">
