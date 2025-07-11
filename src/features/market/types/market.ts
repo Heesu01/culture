@@ -39,3 +39,25 @@ export interface BoardListResponse {
     boards: Board[];
   };
 }
+
+export interface BoardDetail {
+  boardId: string;
+  marketName: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  author: string;
+  imageDataList: {
+    imageId: string;
+    imageUrl: string;
+  }[];
+  likeCount: number;
+  liked: boolean;
+}
+
+export interface Comment {
+  commentId: string;
+  userId: string;
+  content: string;
+  createdAt: string;
+}

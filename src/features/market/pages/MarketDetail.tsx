@@ -45,7 +45,13 @@ const MarketDetail = () => {
       <div className="flex-1 px-[32px] mt-[18px] overflow-y-auto">
         {boards.length > 0 ? (
           boards.map((post) => (
-            <div key={post.boardId} className="flex pb-[12px] gap-[12px]">
+            <div
+              key={post.boardId}
+              className="flex pb-[12px] gap-[12px]"
+              onClick={() =>
+                navigate(`/market/서울/${marketName}/${post.boardId}`)
+              }
+            >
               <img
                 src={post.imageDataList[0]?.imageUrl}
                 alt={post.title}
