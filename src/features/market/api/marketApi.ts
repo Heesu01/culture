@@ -33,3 +33,11 @@ export const likeBoard = (boardId: string) => {
 export const unlikeBoard = (boardId: string) => {
   return Axios.delete(`/reactions/like/${boardId}`);
 };
+
+export const createBoard = async (marketName: string, formData: FormData) => {
+  return await Axios.post(`/boards?marketName=${marketName}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};

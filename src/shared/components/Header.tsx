@@ -7,6 +7,7 @@ interface CommonHeaderProps {
   showBack?: boolean;
   showClose?: boolean;
   onClosePath?: string;
+  backPath?: string;
   onBack?: () => void;
   bgColor?: string;
 }
@@ -16,6 +17,7 @@ const Header = ({
   showBack = true,
   showClose = false,
   onClosePath,
+  backPath,
   onBack,
   bgColor = "bg-white",
 }: CommonHeaderProps) => {
@@ -23,7 +25,7 @@ const Header = ({
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full flex items-center h-[56px] ${bgColor}`}
+      className={`z-50 fixed top-0 left-0 w-full flex items-center h-[56px] ${bgColor}`}
     >
       {showBack && (
         <button
@@ -31,6 +33,8 @@ const Header = ({
           onClick={() => {
             if (onBack) {
               onBack();
+            } else if (backPath) {
+              navigate(backPath);
             } else {
               navigate(-1);
             }
