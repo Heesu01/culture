@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "@/shared/components/Header";
-import heartIcon from "@/features/market/assets/heart.png";
-import heartFilledIcon from "@/features/market/assets/heart-filled.png"; // 좋아요된 상태용 이미지 추가
+import heartIcon from "@/features/market/assets/Heart.png";
+import heartFilledIcon from "@/features/market/assets/heart-filled.png";
 import markerIcon from "@/features/market/assets/marker-primary.png";
 import profileIcon from "@/features/market/assets/profile.png";
 import {
