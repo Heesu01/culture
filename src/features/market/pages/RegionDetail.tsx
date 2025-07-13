@@ -4,7 +4,7 @@ import RegionMap from "@/features/market/components/RegionMap";
 const RegionDetail = () => {
   return (
     <div className="flex flex-col  h-[93vh]">
-      <Header title={"시장 지도"} showBack={true} />
+      <Header title={"시장 지도"} showBack={true} backPath="/market" />
       <div className="flex-grow">
         <RegionMap />
       </div>
