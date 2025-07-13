@@ -6,10 +6,17 @@ const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const isMarketDetail = /^\/market\/[^/]+\/[^/]+$/.test(location.pathname);
+  const isBoardDetail = /^\/market\/[^/]+\/[^/]+\/[^/]+$/.test(
+    location.pathname
+  );
+
   const visiblePaths = ["/market", "/mypage", "/stamp"];
   const showNav =
-    visiblePaths.includes(location.pathname) ||
-    location.pathname.startsWith("/market/");
+    !isMarketDetail &&
+    !isBoardDetail &&
+    (visiblePaths.includes(location.pathname) ||
+      location.pathname.startsWith("/market/"));
 
   useEffect(() => {
     const isTokenExpired = (token: string | null) => {

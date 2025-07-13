@@ -9,3 +9,35 @@ export const getMarkets = async (
   );
   return data;
 };
+
+export const getMarketBoards = async (marketName: string) => {
+  return await Axios.get(`/boards/all?marketName=${marketName}`);
+};
+
+export const getBoardDetail = async (boardId: string) => {
+  return Axios.get(`/boards/${boardId}`);
+};
+
+export const getComments = async (boardId: string) => {
+  return await Axios.get(`/comments/get/${boardId}`);
+};
+
+export const postComment = async (boardId: string, content: string) => {
+  return await Axios.post(`/comments/${boardId}`, { content });
+};
+
+export const likeBoard = (boardId: string) => {
+  return Axios.post(`/reactions/like/${boardId}`);
+};
+
+export const unlikeBoard = (boardId: string) => {
+  return Axios.delete(`/reactions/like/${boardId}`);
+};
+
+export const createBoard = async (marketName: string, formData: FormData) => {
+  return await Axios.post(`/boards?marketName=${marketName}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
