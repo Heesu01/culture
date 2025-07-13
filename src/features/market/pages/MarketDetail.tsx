@@ -4,7 +4,7 @@ import Header from "@/shared/components/Header";
 import Button from "@/features/recommend/components/Button";
 import { getMarketBoards } from "@/features/market/api/marketApi";
 import type { Board } from "@/features/market/types/market";
-import heartIcon from "@/features/market/assets/heart.png";
+import heartIcon from "@/features/market/assets/Heart.png";
 
 const MarketDetail = () => {
   const { regionName } = useParams<{ regionName: string }>();
