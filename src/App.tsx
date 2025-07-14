@@ -33,7 +33,10 @@ const App = () => {
 
     const token = localStorage.getItem("accessToken");
 
-    if (isTokenExpired(token)) {
+    const publicPaths = ["/login", "/signup"];
+    const isPublicPage = publicPaths.includes(location.pathname);
+
+    if (!isPublicPage && isTokenExpired(token)) {
       localStorage.removeItem("accessToken");
       navigate("/login");
     }
