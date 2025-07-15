@@ -130,21 +130,29 @@ const RegionMap = () => {
           Number(selectedMarket.x)
         );
 
-        new window.naver.maps.Marker({
+        const selectedMarker = new window.naver.maps.Marker({
           position: pos,
           map: map,
           icon: {
             content: `
-              <div class="marker-wrapper flex flex-col items-center">
-                <div class="marker-label text-body3 bg-primary text-white px-[12px] py-[4px] rounded-[8px] shadow whitespace-nowrap">
-                  ${selectedMarket.marketName}
-                </div>
-                <img src="${markerImg}" alt="마커" class="w-[20px] mt-[4px]" />
-              </div>
-            `,
+        <div class="marker-wrapper flex flex-col items-center">
+          <div class="marker-label text-body3 bg-primary text-white px-[12px] py-[4px] rounded-[8px] shadow whitespace-nowrap">
+            ${selectedMarket.marketName}
+          </div>
+          <img src="${markerImg}" alt="마커" class="w-[20px] mt-[4px]" />
+        </div>
+      `,
             size: new window.naver.maps.Size(80, 50),
             anchor: new window.naver.maps.Point(40, 50),
           },
+        });
+
+        window.naver.maps.Event.addListener(selectedMarker, "click", () => {
+          navigate(
+            `/market/${regionName}/${encodeURIComponent(
+              selectedMarket.marketName
+            )}`
+          );
         });
 
         map.setCenter(pos);
