@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useSwipeable } from "react-swipeable";
 import Header from "@/shared/components/Header";
 import heartIcon from "@/features/market/assets/Heart.png";
 import heartFilledIcon from "@/features/market/assets/heart-filled.png";
@@ -22,8 +23,21 @@ const BoardDetail = () => {
   const [post, setPost] = useState<BoardDetailType | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState("");
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const fetchPostAndComments = async () => {
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => {
+      setCurrentImageIndex((prev) =>
+        post && prev < post.imageDataList.length - 1 ? prev + 1 : prev
+      );
+    },
+    onSwipedRight: () => {
+      setCurrentImageIndex((prev) => (post && prev > 0 ? prev - 1 : prev));
+    },
+    trackMouse: true,
+  });
+
+  const fetchPostAndComments = useCallback(async () => {
     if (!boardId) return;
     try {
       const [postRes, commentRes] = await Promise.all([
@@ -32,14 +46,15 @@ const BoardDetail = () => {
       ]);
       setPost(postRes.data.data);
       setComments(commentRes.data.data.commentList);
+      setCurrentImageIndex(0);
     } catch (error) {
       console.error("게시글 또는 댓글 조회 실패", error);
     }
-  };
+  }, [boardId]);
 
   useEffect(() => {
     fetchPostAndComments();
-  }, [boardId]);
+  }, [fetchPostAndComments]);
 
   const handleCommentSubmit = async () => {
     if (!boardId || !newComment.trim()) return;
@@ -100,13 +115,15 @@ const BoardDetail = () => {
 
         {post.imageDataList.length > 0 && (
           <div className="w-full rounded-[12px] overflow-hidden mb-[20px] relative">
-            <img
-              src={post.imageDataList[0].imageUrl}
-              alt="대표 이미지"
-              className="w-full object-cover"
-            />
-            <div className="absolute right-[15px] bottom-[15px] bg-black/60 text-white px-[10px] py-[7px] rounded-[8px] text-[12px]">
-              1 / {post.imageDataList.length}
+            <div className="relative w-full min-h-[200px]" {...swipeHandlers}>
+              <img
+                src={post.imageDataList[currentImageIndex].imageUrl}
+                alt={`이미지 ${currentImageIndex + 1}`}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute right-[15px] bottom-[15px] bg-black/60 text-white px-[10px] py-[7px] rounded-[8px] text-[12px]">
+                {currentImageIndex + 1} / {post.imageDataList.length}
+              </div>
             </div>
           </div>
         )}
