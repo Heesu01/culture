@@ -32,6 +32,7 @@ type Stamp = {
   visitedAt: string | null;
   x: string;
   y: string;
+  region: string;
 };
 
 const StampMap = () => {
@@ -98,7 +99,7 @@ const StampMap = () => {
     const fetchMarkets = async () => {
       try {
         const res = await fetchStampMarkets();
-        setStamps(res.data.markets);
+        setStamps(res.data.markets as Stamp[]);
       } catch (error) {
         console.error("도감 데이터 불러오기 실패:", error);
       }
@@ -116,28 +117,40 @@ const StampMap = () => {
         Number(market.x)
       );
 
-      const badgeHTML = ReactDOMServer.renderToStaticMarkup(
-        <StampBadge name={market.marketName} visited={market.visited} />
-      );
-
       const marker = new window.naver.maps.Marker({
         position,
         map: mapInstance.current,
         icon: {
-          content: badgeHTML,
+          content: ReactDOMServer.renderToStaticMarkup(
+            <StampBadge
+              name={market.marketName}
+              visited={market.visited}
+              region={market.region}
+              onClick={() => {
+                if (market.visited) {
+                  navigate(`/stamp/mystamp/${market.region}`);
+                } else {
+                  setSelectedStamp(market);
+                  setShowModal(true);
+                }
+              }}
+            />
+          ),
           size: new window.naver.maps.Size(80, 80),
           anchor: new window.naver.maps.Point(40, 40),
         },
       });
 
       window.naver.maps.Event.addListener(marker, "click", () => {
-        if (!market.visited) {
+        if (market.visited) {
+          navigate(`/stamp/mystamp/${market.region}`);
+        } else {
           setSelectedStamp(market);
           setShowModal(true);
         }
       });
     });
-  }, [stamps]);
+  }, [stamps, navigate]);
 
   const handleConfirm = async () => {
     if (!selectedStamp) return;

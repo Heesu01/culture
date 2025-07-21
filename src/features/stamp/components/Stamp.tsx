@@ -2,7 +2,7 @@ import stamp from "@/features/stamp/assets/stamp.png";
 import stampNo from "@/features/stamp/assets/stampNo.png";
 import type { StampBadgeProps } from "../types/stamp";
 
-const StampBadge = ({ name, visited }: StampBadgeProps) => {
+const StampBadge = ({ name, visited, onClick }: StampBadgeProps) => {
   const trimmed = name.replace(/시장$/, "");
 
   let displayName = trimmed;
@@ -13,7 +13,7 @@ const StampBadge = ({ name, visited }: StampBadgeProps) => {
   }
 
   return (
-    <div className="relative inline-block w-[80px] h-[80px]">
+    <div className="relative inline-block w-[80px] h-[80px]" onClick={onClick}>
       <img
         src={visited ? stamp : stampNo}
         alt="스탬프 배지"
@@ -22,7 +22,7 @@ const StampBadge = ({ name, visited }: StampBadgeProps) => {
       <span
         className={`absolute inset-0 flex items-center justify-center font-bmdoM rotate-[10deg]
           ${visited ? "text-primary" : "text-deactivate-text"}
-          `}
+        `}
       >
         {displayName}
       </span>
