@@ -153,6 +153,7 @@ const BoardDetail = () => {
             placeholder="댓글 작성하기"
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
+            style={{ fontSize: "16px" }}
             className="flex-1 rounded-[8px] p-[12px] text-[16px] bg-grayBg outline-0"
           />
           <button
