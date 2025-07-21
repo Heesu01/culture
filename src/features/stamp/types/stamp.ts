@@ -1,6 +1,8 @@
 export interface StampBadgeProps {
   name: string;
   visited: boolean;
+  region?: string;
+  onClick?: () => void;
 }
 
 export interface StampCardProps {
