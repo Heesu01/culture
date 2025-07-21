@@ -115,7 +115,7 @@ const BoardDetail = () => {
 
         {post.imageDataList.length > 0 && (
           <div className="w-full rounded-[12px] overflow-hidden mb-[20px] relative">
-            <div className="relative w-full min-h-[200px]" {...swipeHandlers}>
+            <div className="relative w-full aspect-[4/3]" {...swipeHandlers}>
               <img
                 src={post.imageDataList[currentImageIndex].imageUrl}
                 alt={`이미지 ${currentImageIndex + 1}`}
@@ -153,7 +153,7 @@ const BoardDetail = () => {
             placeholder="댓글 작성하기"
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
-            className="flex-1 rounded-[8px] p-[12px] text-body2 bg-grayBg outline-0"
+            className="flex-1 rounded-[8px] p-[12px] text-[16px] bg-grayBg outline-0"
           />
           <button
             onClick={handleCommentSubmit}
@@ -163,7 +163,7 @@ const BoardDetail = () => {
           </button>
         </div>
 
-        {comments.map((comment) => (
+        {[...comments].reverse().map((comment) => (
           <div
             key={comment.commentId}
             className="flex items-start gap-[15px] mb-[12px]"
