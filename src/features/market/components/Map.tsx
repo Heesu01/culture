@@ -22,6 +22,8 @@ const Map = () => {
   const [selectedRegion, setSelectedRegion] = useState<
     null | (typeof regions)[0]
   >(null);
+  const [showGuide, setShowGuide] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
     loadNaverMapScript(() => {
@@ -60,9 +62,30 @@ const Map = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => setFadeOut(true), 2000);
+    const hideTimer = setTimeout(() => setShowGuide(false), 2500);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(hideTimer);
+    };
+  }, []);
+
   return (
     <>
-      <div ref={mapElement} className="w-full h-full" />
+      <div ref={mapElement} className="w-full h-full relative">
+        {showGuide && (
+          <div
+            className={`fixed top-24 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-xl shadow text-body2 z-50 text-center transition-opacity duration-500 min-w-[60%] ${
+              fadeOut ? "animate-fadeout" : "animate-fadein"
+            }`}
+          >
+            어느 <span className="text-primary font-semibold">지역 시장</span>이
+            궁금한가요?
+            <br /> 🗺️ 지도를 눌러 확인해보세요
+          </div>
+        )}
+      </div>
       {selectedRegion && <RegionModal region={selectedRegion} />}
     </>
   );
