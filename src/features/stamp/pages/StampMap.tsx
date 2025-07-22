@@ -61,6 +61,7 @@ const StampMap = () => {
               zoom: 17,
             });
             mapInstance.current = map;
+            const userPosition = new window.naver.maps.LatLng(lat, lng);
 
             new window.naver.maps.Marker({
               position: new window.naver.maps.LatLng(lat, lng),
@@ -72,6 +73,17 @@ const StampMap = () => {
                 size: new window.naver.maps.Size(14, 14),
                 anchor: new window.naver.maps.Point(7, 7),
               },
+            });
+
+            new window.naver.maps.Circle({
+              map: map,
+              center: userPosition,
+              radius: 100,
+              strokeColor: "#ff8000;",
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: "#f6ab3b33",
+              fillOpacity: 0.3,
             });
           },
           (err) => {
