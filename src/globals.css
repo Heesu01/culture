@@ -54,6 +54,36 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  @keyframes fadein {
+    0% {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadein {
+    animation: fadein 0.5s ease-out;
+  }
+
+  @keyframes fadeout {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+
+  .animate-fadeout {
+    animation: fadeout 0.5s ease-in;
+  }
 }
 
 @theme {

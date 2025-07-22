@@ -80,7 +80,7 @@ const MarketDetail = () => {
               </div>
             ))
           ) : (
-            <div className="flex-1 flex flex-col items-center justify-center text-center mt-[0px]">
+            <div className="flex-1 flex flex-col items-center justify-center text-center mt-[100px]">
               <p className="text-body1 font-semibold mb-[8px]">
                 아직 등록된 이야기가 없어요.
               </p>
