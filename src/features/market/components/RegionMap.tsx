@@ -31,6 +31,8 @@ const RegionMap = () => {
   const [showHint, setShowHint] = useState(true);
 
   const region = regions.find((r) => r.name === regionName);
+  const [showChatHint, setShowChatHint] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
 
   const selectedMarket = useMemo(() => {
     return state?.x && state?.y
@@ -57,6 +59,27 @@ const RegionMap = () => {
 
     fetchMarkets();
   }, [regionName]);
+
+  useEffect(() => {
+    const fadeInTimer = setTimeout(() => {
+      setShowChatHint(true);
+    }, 200);
+
+    const fadeOutTimer = setTimeout(() => {
+      setFadeOut(true);
+    }, 2200);
+
+    const removeTimer = setTimeout(() => {
+      setShowChatHint(false);
+      setFadeOut(false);
+    }, 2700);
+
+    return () => {
+      clearTimeout(fadeInTimer);
+      clearTimeout(fadeOutTimer);
+      clearTimeout(removeTimer);
+    };
+  }, []);
 
   useEffect(() => {
     if (!region || !window.naver) return;
@@ -186,6 +209,21 @@ const RegionMap = () => {
           )}
 
           <div ref={mapElement} className="w-full h-full" />
+
+          {showChatHint && (
+            <div
+              className={`absolute bottom-[170px] right-[32px] z-10 flex flex-col items-end ${
+                fadeOut ? "animate-fadeout" : "animate-fadein"
+              }`}
+            >
+              <div className="relative bg-primary text-white text-sm px-3 py-2 rounded-xl shadow-md max-w-[180px]">
+                궁금한 점이 있다면
+                <br />
+                챗봇에게 물어보세요!
+                <div className="absolute bottom-[-6px] right-3 w-0 h-0 border-t-[6px] border-t-primary border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent" />
+              </div>
+            </div>
+          )}
 
           <button
             onClick={() => navigate("/chatbot")}
