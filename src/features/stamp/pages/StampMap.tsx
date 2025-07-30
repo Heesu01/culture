@@ -50,59 +50,44 @@ const StampMap = () => {
     loadNaverMapScript(() => {
       if (!mapElement.current || !window.naver) return;
 
+      const setMap = (lat: number, lng: number) => {
+        const map = new window.naver.maps.Map(mapElement.current, {
+          center: new window.naver.maps.LatLng(lat, lng),
+          zoom: 17,
+        });
+        mapInstance.current = map;
+        const userPosition = new window.naver.maps.LatLng(lat, lng);
+
+        new window.naver.maps.Marker({
+          position: userPosition,
+          map,
+          icon: {
+            content: `<div class="w-[20px] h-[20px] bg-primary rounded-full border-2 border-white shadow"></div>`,
+            size: new window.naver.maps.Size(14, 14),
+            anchor: new window.naver.maps.Point(7, 7),
+          },
+        });
+
+        new window.naver.maps.Circle({
+          map,
+          center: userPosition,
+          radius: 100,
+          strokeColor: "#ff8000",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#f6ab3b33",
+          fillOpacity: 0.3,
+        });
+      };
+
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-          (pos) => {
-            const lat = pos.coords.latitude;
-            const lng = pos.coords.longitude;
-
-            const map = new window.naver.maps.Map(mapElement.current, {
-              center: new window.naver.maps.LatLng(lat, lng),
-              zoom: 17,
-            });
-            mapInstance.current = map;
-            const userPosition = new window.naver.maps.LatLng(lat, lng);
-
-            new window.naver.maps.Marker({
-              position: new window.naver.maps.LatLng(lat, lng),
-              map: map,
-              icon: {
-                content: `
-                <div class="w-[20px] h-[20px] bg-primary rounded-full border-2 border-white shadow"></div>
-              `,
-                size: new window.naver.maps.Size(14, 14),
-                anchor: new window.naver.maps.Point(7, 7),
-              },
-            });
-
-            new window.naver.maps.Circle({
-              map: map,
-              center: userPosition,
-              radius: 100,
-              strokeColor: "#ff8000;",
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillColor: "#f6ab3b33",
-              fillOpacity: 0.3,
-            });
-          },
-          (err) => {
-            console.warn("위치 못 가져옴:", err);
-            mapInstance.current = new window.naver.maps.Map(
-              mapElement.current,
-              {
-                center: new window.naver.maps.LatLng(37.5665, 126.978),
-                zoom: 12,
-              }
-            );
-          }
+          (pos) => setMap(pos.coords.latitude, pos.coords.longitude),
+          () => setMap(37.5665, 126.978)
         );
       } else {
         console.warn("Geolocation 지원 안됨");
-        mapInstance.current = new window.naver.maps.Map(mapElement.current, {
-          center: new window.naver.maps.LatLng(37.5665, 126.978),
-          zoom: 12,
-        });
+        setMap(37.5665, 126.978);
       }
     });
   }, []);
@@ -121,7 +106,7 @@ const StampMap = () => {
   }, []);
 
   useEffect(() => {
-    if (!window.naver || !mapInstance.current) return;
+    if (!window.naver || !mapInstance.current || stamps.length === 0) return;
 
     stamps.forEach((market) => {
       const position = new window.naver.maps.LatLng(
@@ -199,15 +184,6 @@ const StampMap = () => {
     }
   };
 
-  const handleModalClose = () => {
-    setShowModal(false);
-    setSelectedStamp(null);
-  };
-
-  const handleConfirmModalClose = () => {
-    setShowConfirmModal(false);
-  };
-
   return (
     <div className="flex flex-col h-[93vh] relative">
       <Header title={"도장깨기"} showBack={false} />
@@ -229,14 +205,17 @@ const StampMap = () => {
           title="시장 위치 인증"
           description={`도장깨기를 완료하려면\n현재 ${selectedStamp.marketName} 위치를 인증해야해요!`}
           onConfirm={handleConfirm}
-          onCancel={handleModalClose}
+          onCancel={() => {
+            setShowModal(false);
+            setSelectedStamp(null);
+          }}
         />
       )}
 
       {showConfirmModal && selectedStamp && (
         <ConfirmModal
           marketName={selectedStamp.marketName}
-          onClose={handleConfirmModalClose}
+          onClose={() => setShowConfirmModal(false)}
         />
       )}
     </div>
