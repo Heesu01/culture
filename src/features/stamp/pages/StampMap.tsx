@@ -47,6 +47,25 @@ const StampMap = () => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   useEffect(() => {
+    if (!navigator.permissions) return;
+
+    navigator.permissions
+      .query({ name: "geolocation" })
+      .then((permissionStatus) => {
+        if (permissionStatus.state === "prompt") {
+          permissionStatus.onchange = () => {
+            if (permissionStatus.state === "granted") {
+              window.location.reload();
+            }
+          };
+        }
+      })
+      .catch((err) => {
+        console.warn("권한 상태 확인 실패:", err);
+      });
+  }, []);
+
+  useEffect(() => {
     loadNaverMapScript(() => {
       if (!mapElement.current || !window.naver) return;
 
