@@ -27,11 +27,7 @@ const MyStampList = () => {
 
   return (
     <div className="h-full flex flex-col">
-      <Header
-        title="My 도감"
-        showBack={true}
-        onBack={() => navigate("/stamp")}
-      />
+      <Header title="My 도감" showBack={true} />
 
       <div className="overflow-x-auto scrollbar-hide pt-[24px] mb-[32px]">
         <div className="flex gap-[20px] px-[32px]">
