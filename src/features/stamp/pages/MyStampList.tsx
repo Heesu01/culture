@@ -3,11 +3,9 @@ import Header from "@/shared/components/Header";
 import StampCard from "@/features/stamp/components/StampCard";
 import { getRegionsProgress } from "@/features/stamp/api/stampApi";
 import type { RegionProgress } from "@/features/stamp/types/stamp";
-import { useNavigate } from "react-router-dom";
 
 const MyStampList = () => {
   const [regions, setRegions] = useState<RegionProgress[]>([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRegions = async () => {
